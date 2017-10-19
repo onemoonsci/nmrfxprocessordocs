@@ -66,6 +66,11 @@ Align Spectra
 
 ### View
 
+Show Console
+
+:    Display the Console window.  The console can be used in Jython (Java version of Python) or R (statistical language) modes.
+
+
 Show Datasets
 
 :   Show a table of currently opened datasets.  Each row of the table shows the dataset name, number of dataset dimensions, default contour level, scale value, default contouring parameters and reference information.  Reference information is displayed for a single dimension at a time.  A pop-up menu on the DimN header allows you to choose the display dimension.  The Draw menu at top of the Dataset Table window allows you to draw selected datasets in a variety of arrangements.
@@ -79,6 +84,10 @@ Show Attributes
 Show Processor
 
 :    Display the Processor control window.
+
+Show Scanner
+
+:    Display the Scanner window.  The scanner can be used to process, display and analyze sets of spectra.
 
 ### Window
 
