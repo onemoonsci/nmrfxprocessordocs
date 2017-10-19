@@ -1,12 +1,12 @@
 ---
-title: Processing GUI
+title: Scanner Tool 
 taxonomy:
     category: docs
 ---
 
 ### Chapter 3
 
-# Processing GUI
+#  Scanner Tool
 
-Using the Processor GUI 
+Using the Scanner Tool
 
