@@ -83,7 +83,7 @@ Show Attributes
 
 Show Processor
 
-:    Display the Processor control window.
+:    Display the Processor control window (it appears automatically if you open an FID)
 
 Show Scanner
 
@@ -116,10 +116,6 @@ Open
 Attributes
 
 :    Display the attributes panel for controlling how your spectrum is displayed. The attributes panel in NMRFx is designed to work much like that in NMRViewJ (though the code is completely different). 
-
-Processor
-
-:    Display the processing control panel (it appears automatically if you open an FID)
 
 Refresh
 
