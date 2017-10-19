@@ -25,3 +25,11 @@ Save As...
 
 :    Save the script to a file.  Use this button to explicitly save the script to a different location and name and name than the default (*process.py* in the FID directory).
 
+Load Operations...
+
+:  Load a text file containing operations.  This is not a Python script, but a simple list of operations as they would appear in the Operations List tab.  The operations in the file can leave off the parentheses if there are no optional arguments.  So you could have an entry like "SB()" or "SB".  The operations in the file will be appended on to whatever operations are currently displayed in the Operations List tab.  This is partiularly useful for loading in commands to generate and process a simulated FID.
+
+Save Operations...
+
+:  Save the current list of operations (in the Operations List tab) to a file.  Choosing this operation will display a File browser so you can choose a location and file name.  Since the operation file is not a Python script it is best to give it an extension like ".txt" rather than ".py".
+
