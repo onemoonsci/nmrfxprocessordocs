@@ -31,6 +31,14 @@ Export PDF...
 
 :    Create a PDF file containing a rendering of the currently active spectrum.  Note:  at present, only the active spectrum chart in a single window will be exported to the file.
 
+Export SVG...
+
+:    Create an SVG file containing a rendering of the currently active spectrum.  Note:  at present, only the active spectrum chart in a single window will be exported to the file.
+
+Save PeakLists
+
+:    Create NMRViewJ ".xpk" files for all current peak lists.  Note: peak list use and import/export is currently in the prototype stage.
+
 ### Spectra
 
 Delete
@@ -43,6 +51,9 @@ Arrange
 :    Horizontal.  Arrange the spectrum charts in a window with multiple charts such that they occupy a single horizontal row.
 :    Vertical.  Arrange the spectrum charts in a window with multiple charts such that they occupy a single vertical column.
 :    Grid.  Arrange the spectrum charts in a window with multiple charts such that they occupy a grid of rows and columns.  The number of rows and columns is determined automatically.
+:    Overlay.  Convert a grid (or row or column) of spectrum charts into a single chart with all the datasets displayed.  You can switch an overlay of spectra back to a grid (or row or column) using the Grid, Horizontal or Vertical menu items.
+:    Minimize Borders. Only display the axis tic marks and labels for charts that are on the bottom or left edge of the spectra.  Those for "internal" spectra are removed to conserve space.
+:    Normal Borders. Display the axis tic marks and labels for all charts in the current stage.
 
 Sync Axes
 
@@ -51,7 +62,7 @@ Sync Axes
 
 Align Spectra
 
-:    Adjust the referencing so spectra are aligned with each other.  Alignment happens between spectra that are displayed in the same window.  They can be in separate charts within the window, or multiple datasets within a single chart.  Alignment occurs only between the dataset dimensions on the x and y axes (not planes).  Alignment is done by peak picking the spectra (if peak picking has not already been done) and adjusting the referencing such that the distance between nearby peaks is minimized.  The first dataset of the active chart is the target dataset.  Other datasets are aligned to that dataset.  Dataset parameter files are written to save the new referencing.
+:    Adjust the referencing so spectra are aligned with each other.  Alignment happens between spectra that are displayed in the same window.  They can be in separate charts within the window, or multiple datasets within a single chart.  Alignment occurs only between the dataset dimensions on the x and y axes (not planes).  Alignment is done by peak picking the spectra (if peak picking has not already been done) and adjusting the referencing such that the distance between nearby peaks is minimized.  The first dataset of the active chart is the target dataset.  Other datasets are aligned to that dataset.  Dataset parameter files are written to save the new referencing.  This process (in current implementation) can be slow if there are a lot of peaks.  Because of this it's a good idea to have the window display zoomed in somewhat.
 
 ### View
 
