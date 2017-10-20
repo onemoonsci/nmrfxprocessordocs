@@ -16,8 +16,6 @@ After loading the table (directly from a table file) or via the folder scanning 
 
 If you load data via a table file, your table file can contain additional columns that will appear in this table.
 
- Use this to scan a folder for all the contained NMR folders. A list will be displayed of all the datasets found, and then they can all be processed with the same script. 
-
 ## Menus
 
 ### File
@@ -28,15 +26,15 @@ Scan Directory...
 
 Open Table...
 
-:    Process all the datasets using the current script. At present, each processed dataset will be placed in the folder containing the FID file it was derived from.
+:    Load a table file that contains the locations of the data files that should be opened.  Additional columns can describe additional metadata about the datasets.  See information below about the format of the file..
 
-Save Table...
+Save Table...h
 
-:    Process all the datasets using the current script. At present, each processed dataset will be placed in the folder containing the FID file it was derived from.
+:    Save the current table to a file.
 
 Process and Combine
 
-:    Process all the datasets using the current script. At present, each processed dataset will be placed in the folder containing the FID file it was derived from.
+:    Process all the datasets using the current script. The processed files will be combined into single dataset.  If the original data files are one-dimensioal a pseudo-2D dataset will be created, with one row for each original dataset.  If the original data files are two-dimensioan, then a pseudo-3D dataset will be created, with one plane for each original dataset.
 
 Process 
 
@@ -46,12 +44,12 @@ Process
 
 Use Current State
 
-:    dddd
+:    The table can be filtered and sorted (as described below).  This command will removed any rows that are not displayed (via the filtering tools) and will change the order of the rows to correspond to the current sorting.
 
 ### Analyze
 
 Measure
 
-:    dddd
+:    Measure the intensities for each row of the pseudo-2D dataset.  The measurement is done for the region between the currently displayed vertical crosshairs.  The type of measurement is set by the Mode value in the Parameters tab.
 
 
