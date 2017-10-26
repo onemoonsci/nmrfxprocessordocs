@@ -10,7 +10,7 @@ The Scanner Table provides information on what files should be loaded and inform
 
 a path entry of "100" will specify a file at
 
-/Users/brucejohnson/data/metabolomics/10
+/Users/brucejohnson/data/metabolomics/100
 
 
 Information in the **sequence**, **ndim**, and **etime** columns will be automatically populated when the directory is scanned.  The appropriate parameter files will be examined to extract this information.  The **etime** field is calculated from the time each dataset was acquired.  The first dataset will given a time of **0** and subsequent datasets will have an **etime** value equal to their acquisition time minus that of the firrst dataset (in seconds).
