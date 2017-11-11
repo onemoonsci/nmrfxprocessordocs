@@ -37,11 +37,14 @@ Export SVG...
 
 Save PeakLists
 
-:    Create NMRViewJ ".xpk" files for all current peak lists.  Note: peak list use and import/export is currently in the prototype stage.
+:    Create ".xpk2" files for all current peak lists.  Note: peak list use and import/export is currently in the prototype stage.  The .xpk2 format is a modification of the NMRViewJ .xpk format and will be supported in a subsequent version of NMRViewJ.
 
+Load PeakLists
+
+:    Load ".xpk2" files for all current datasets (if the .xpk2 file exists).  Note: peak list use and import/export is currently in the prototype stage.
 ### Spectra
 
-Delete
+Delete Spectrum
 
 :    Delete the active spectrum chart from a window that has more than one chart in it.  The remaining charts will be resized to fill the empty space.
 
@@ -135,11 +138,11 @@ Expand
 
 In
 
-:    Zoom the display in (showing a smaller region of the spectrum).
+:    Zoom the display in (showing a smaller region of the spectrum).  When the mouse pointer is over this icon you can use the scroll wheel (or scroll gesture on trackpad) to zoom in or out (Scroll control works the same on both the In and Out icons).
 
 Out
 
-:    Zoom the display out (showing more of the spectrum).
+:    Zoom the display out (showing more of the spectrum).  When the mouse pointer is over this icon you can use the scroll wheel (or scroll gesture on trackpad) to zoom in or out (Scroll control works the same on both the In and Out icons).
 
 Auto
 
@@ -147,15 +150,16 @@ Auto
 
 Higher
 
-:    Adjust vertical scale (or contour level for 2D) so peaks appear higher.
+:    Adjust vertical scale (or contour level for 2D) so peaks appear higher.  When the mouse pointer is over this icon you can use the scroll wheel (or scroll gesture on trackpad) to raise or lower the scale (Scroll control works the same on both the Higher and Lower icons).
 
 Lower
 
-:    Adjust vertical scale (or contour level for 2D) so peaks appear lower.
+:    Adjust vertical scale (or contour level for 2D) so peaks appear lower.  When the mouse pointer is over this icon you can use the scroll wheel (or scroll gesture on trackpad) to raise or lower the scale (Scroll control works the same on both the Higher and Lower icons).
 
 Pick
 
-:    Peak pick the spectrum.  The region picked is the currently displayed window.  The threshold level used for picking 2D and higher dimension datasets will be the current contour level.  The threshold for 1D datasets will be the position of the black, horizontal crosshair.  Picked peaks will be displayed and the peak information immediately saved in a text file in the NMRViewJ .xpk format in a file in the directory containing the dataset.  This is a very early implementation of the peak tools.  Full peak analysis should be done in NMRViewJ until more peak tools are added to NMRFx Processor.
+:    Peak pick the spectrum.  The region picked is the currently displayed window or the region contained between the crosshairs (if they are present).  The threshold level used for picking 2D and higher dimension datasets will be the current contour level.  The threshold for 1D datasets will be the position of the black, horizontal crosshair.  Picked peaks will be displayed and the peak information immediately saved in a text file in the NMRViewJ .xpk format in a file in the directory containing the dataset.  If the spectrum already has a peaklist then the new peaks will add or replace existing peaks depending on whether peaks are present in the pick region.  If peaks are present, the current list will be cleared and replaced with the new peaks.  If no existing peaks are present in the region, then the new peaks will be appended on to the list of existing peaks.  Peaks can be selected, moved and resized with the cursor in Selection mode.
+This is a very early implementation of the peak tools.  Full peak analysis should be done in NMRViewJ until more peak tools are added to NMRFx Processor.
 
 NvJ
 
@@ -169,6 +173,10 @@ Chart
 ## Bottom Toolbar
 
 ![Bottom ToolBar](images/status_bar.png)
+
+CrossHair Mode
+
+:   The crosshair can be in one of two modes.  In Crosshair mode it is used to position crosshairs.  In Selector mode, it is used to select, move and resize peaks.
 
 X,Y
 
