@@ -4,6 +4,8 @@ taxonomy:
     category: docs
 ---
 
+![Scanner](images/scanner.png)
+
 The Scanner Tool can be used to process, visualize and analyze groups of spectra.  Intensity and integral measures are stored in a table and this tabular data is accessible via the R scripting interface.  You can either scan a folder of files to identify all the NMR datasets in the folder or load a table that lists the locations of the files and any metadata about each file.   When scanning a folder for files the scan is recursive, so folders containing folders are searched.  
 
 After loading the table (directly from a table file) or via the folder scanning the **Table** tab region of the Scanner window will contain a table listing all the files.  At a minimum, the following columns in the table will be poplulated.
