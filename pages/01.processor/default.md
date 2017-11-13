@@ -1,9 +1,6 @@
 ---
-title: Documentation
+title: NMRFx Processor
 ---
 
-### Documentation
+### NMRFx Processor
 
-# Documentation
-
-NMRFx Processor and Viewer
