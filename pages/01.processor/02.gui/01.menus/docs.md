@@ -35,13 +35,28 @@ Export SVG...
 
 :    Create an SVG file containing a rendering of the currently active spectrum.  Note:  at present, only the active spectrum chart in a single window will be exported to the file.
 
-Save PeakLists
+### Projects
 
-:    Create ".xpk2" files for all current peak lists.  Note: peak list use and import/export is currently in the prototype stage.  The .xpk2 format is a modification of the NMRViewJ .xpk format and will be supported in a subsequent version of NMRViewJ.
+NMRFx Projects are similar to NMRViewJ projects in that they consist of a main directory and a series of subdirectories.  Each subdirectory contains data for a particular data type (datasets, peaks, molecules etc.).  Data is stored in simple text files (rather than the STAR format used in NMRViewJ).  NMRFx has a built-in copy of Git, a version control system allowing it to keep a history of project changes.
 
-Load PeakLists
+Open...
 
-:    Load ".xpk2" files for all current datasets (if the .xpk2 file exists).  Note: peak list use and import/export is currently in the prototype stage.
+:    Open an existing project.  Use the file browser that appears to browse to the directory containing the project directory.  Select the project directory and click *Open*.
+
+Open Recent
+
+: This is a sub-menu containing a list of recently used projects.  Choose an entry from the menu to open that project.  Entries in the list show the last three elements of the path to the directory to help you in recognizing projects and distinguishing projects with the same name.
+
+
+Save
+
+:    Save the project into the various project sub-directories.  All the component files of the project are over-written.  Then a Git commit is done to maintain to record the differences from the previous state of the project.
+
+Save As...
+
+:    Save the project into a new project directory. A file browser will appear that will allow you to choose a directory location in which to save the project.
+
+
 ### Spectra
 
 Delete Spectrum
@@ -67,6 +82,10 @@ Align Spectra
 
 :    Adjust the referencing so spectra are aligned with each other.  Alignment happens between spectra that are displayed in the same window.  They can be in separate charts within the window, or multiple datasets within a single chart.  Alignment occurs only between the dataset dimensions on the x and y axes (not planes).  Alignment is done by peak picking the spectra (if peak picking has not already been done) and adjusting the referencing such that the distance between nearby peaks is minimized.  The first dataset of the active chart is the target dataset.  Other datasets are aligned to that dataset.  Dataset parameter files are written to save the new referencing.  This process (in current implementation) can be slow if there are a lot of peaks.  Because of this it's a good idea to have the window display zoomed in somewhat.
 
+Analyzer...
+
+:  Display the spectrum analysis window.  This allow you to measure intensities in a specified region of the spectrum (area with the crosshairs).
+
 ### View
 
 Show Console
@@ -91,6 +110,26 @@ Show Processor
 Show Scanner
 
 :    Display the Scanner window.  The scanner can be used to process, display and analyze sets of spectra.
+
+
+### Peaks
+
+Show Peak Tool
+
+:    The Peak tool allows the user to work with peaks and their peak lists.  Users of NMRViewJ will recognize it as being similar to the Peak Inspector and having capabilities of the Peak Reference tool.  
+
+Show Peak Navigator
+
+:    The Peak Navigator will appear as a tool bar at the bottom of the current spectrum window.  It allows stepping through a peak list and updating the spectrum display to a region around the current peak.
+
+Link By Labels
+
+:    This menu action will link peaks that have common labels.  Once linked they will move in synchoriny when using the Peak Slider, and changing the label for one peak will change the label for all linked peak dimensions.
+
+Show Peak Slider
+
+:    The Peak Slider will appear as a tool bar at the bottom of the current spectrum window.  When present peaks that are linked to each other will move together when any one peak is moved.  The toolbar provides tools for freezing (and "thawing") peaks into the current position so they can't be moved.
+
 
 ### Window
 
