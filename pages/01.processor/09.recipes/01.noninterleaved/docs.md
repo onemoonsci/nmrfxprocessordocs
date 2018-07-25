@@ -4,16 +4,14 @@ taxonomy:
     category: docs
 ---
 
-# Processing Non-Interleaved Relaxation Experiments using NMRFx
-
 ### Step 1: Process a single data set and generate a processing script
 
 1. Launch the NMRFx Processor GUI.
 2. In the plot window, choose **File → Open and Draw**. Navigate to the *.ser* file for experiment 1 and open it. You should see a FID plot.
 3. In the processor window, select **Scripts → Auto Generate** to generate a processing script automatically. The auto generated script might not have all of the commands correctly, so some things might need to be changed.  For example in our Trosy R2 experiment the following need updating:
-    a. In the *Operations* tab, click the *TDCOMB()* list item, and change the *coef* submenu value from *echo-antiecho-r* to *echo-antiecho* (this shouldn't normally be necessary to change, but some pulse sequences generate data that is not consistent with parameters in the acqu2s file). The signal in the first row should now be much more intense.  
-    b. You'll need to adjust the phasing by clicking on the **Phasing** button and adjusting the **PH0** slider.  Click the **Process** button at the bottom of the window to process the data and see the 2D spectrum.
-    c. This data looks upside down in the 15N dimension so select **D1 → D2**, click the *FT()* list item, and uncheck *negateImag* and reprocess the data.
+    - In the *Operations* tab, click the *TDCOMB()* list item, and change the *coef* submenu value from *echo-antiecho-r* to *echo-antiecho* (this shouldn't normally be necessary to change, but some pulse sequences generate data that is not consistent with parameters in the acqu2s file). The signal in the first row should now be much more intense.  
+    - You'll need to adjust the phasing by clicking on the **Phasing** button and adjusting the **PH0** slider.  Click the **Process** button at the bottom of the window to process the data and see the 2D spectrum.
+    - This data looks upside down in the 15N dimension so select **D1 → D2**, click the *FT()* list item, and uncheck *negateImag* and reprocess the data.
 6. Select **D1** and **FID** again. Remove the solvent/water peak by selecting the **+** menu **→ TD-Solvent → TDSS** and reprocess the data.
 7. To adjust the phasing for D1, turn on the phasing slices by making sure both the *Slices* and *Phasing* checkboxes are selected. Position a crosshair on peaks peaks in the dataset, and adjust the *PH0* and *PH1* slider values until the phase slices for the peaks have even baselines. A pivot point must be set (using the **Phase** menu's **Set Pivot** item) before adjusting PH1. Repeat for D2.
 8. Finally, extract a region of interest in the data. Go to the D1 FID, and define region boundaries by clicking in the plot window. Right click to bring up a menu in the spectrum and select **Add Extract Region**.  Reprocess the spectrum and confirm that everything looks good.
