@@ -19,7 +19,7 @@ taxonomy:
 
 Here's the final processing script:
 
-```
+```Python
 import os
 from pyproc import *
 procOpts(nprocess=7)
