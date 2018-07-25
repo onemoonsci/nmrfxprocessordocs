@@ -19,33 +19,35 @@ taxonomy:
 
 Here's the final processing script:
 
-    import os
-    from pyproc import *
-    procOpts(nprocess=7)
-    FID('/Users/brucejohnson/data/HannahM/R2 experiments/1')
-    CREATE('/Users/brucejohnson/data/HannahM/R2 experiments/1/0agp.r2.trosy3.nv')
-    acqOrder('21')
-    acqarray(0,0)
-    skip(0,0)
-    label('1H','15N')
-    acqsize(0,0)
-    tdsize(0,0)
-    sf('SFO1,1','SFO1,2')
-    sw('SW_h,1','SW_h,2')
-    ref('','N')
-    DIM(1)
-    TDCOMB(coef='echo-antiecho')
-    SB()
-    ZF()
-    FT()
-    PHASE(ph0=105.8,ph1=8.7,dimag=False)
-    EXTRACT(start=163,end=913,mode='region')
-    DIM(2)
-    SB(c=0.5)
-    ZF()
-    FT()
-    PHASE(ph0=0.0,ph1=0.0)
-    run()
+```
+import os
+from pyproc import *
+procOpts(nprocess=7)
+FID('/Users/brucejohnson/data/test/R2 experiments/1')
+CREATE('/Users/brucejohnson/data/test/R2 experiments/1/0agp.r2.trosy3.nv')
+acqOrder('21')
+acqarray(0,0)
+skip(0,0)
+label('1H','15N')
+acqsize(0,0)
+tdsize(0,0)
+sf('SFO1,1','SFO1,2')
+sw('SW_h,1','SW_h,2')
+ref('','N')
+DIM(1)
+TDCOMB(coef='echo-antiecho')
+SB()
+ZF()
+FT()
+PHASE(ph0=105.8,ph1=8.7,dimag=False)
+EXTRACT(start=163,end=913,mode='region')
+DIM(2)
+SB(c=0.5)
+ZF()
+FT()
+PHASE(ph0=0.0,ph1=0.0)
+run()
+```
 
 ### Step 2: Process and combine multiple datasets into one
 
