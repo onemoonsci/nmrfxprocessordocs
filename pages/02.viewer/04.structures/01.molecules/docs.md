@@ -121,7 +121,7 @@ the Structure Selector described below.
 | Heterodimer| -molecule mymol, -polymer poly1, -coordset A, met, ala, asn, glu, -polymer poly2, -coordset A, val, asp, arg|
 | Homodimer  |-molecule mymol, -polymer poly1, -coordset A, -coordset B, met, ala, asn, glu|
 | Polymer with ATP ligand | -molecule atpBinding, -polymer chainA, -coordset A, -sdfile atp.sdf, met, ala, asn, glu, lys   |
-| DNA with negative resnum | -molecule quad -polymer A -coordset A da -2 dt dg 1 dc -polymer B -coordset B dg -2 dc da 1 dt |
+| DNA with negative resnum | -molecule quad, -polymer A, -coordset A, da -2, dt, dg 1, dc, -polymer B, -coordset B, dg -2, dc da 1, dt |
 
 
 ## Atom Nomenclature
