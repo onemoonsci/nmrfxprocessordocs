@@ -1,5 +1,5 @@
 ---
-title:  Spectrum Attributes
+title:  Spectrum Menu
 taxonomy:
     category: docs
 ---

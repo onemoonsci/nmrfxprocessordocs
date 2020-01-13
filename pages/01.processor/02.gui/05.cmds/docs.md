@@ -1,3 +1,11 @@
+---
+title:  Python Scripting 
+taxonomy:
+    category: docs
+---
+
+### Scripting the GUI with Python
+
 ### active
 
 Get or set the active chart. By default, the currently active chart is the last created or last one
