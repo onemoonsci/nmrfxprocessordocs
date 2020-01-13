@@ -111,14 +111,20 @@ explicitly read in. To specify which structures are currently active use
 the Structure Selector described below.
 
 
-|Simple sequence           |Sequence starts at "5"      |Sequence with breaks|
-|met, ala, asn, glu, lys   |met 5, ala, asn, glu, lys   |met 5, ala, asn 8, glu, lys, thr, his 15, arg, thr
-|DNA/RNA sequence          |Sequence with entity names  |Heterodimer|
-|dade, dthy, dgua, dcyt, rade, ruri, rgua, rcyt   |-molecule fred, -polymer chainA, -coordset mono1, met 5, ala, asn, glu, lys   |-molecule mymol, -polymer poly1, -coordset A, met, ala, asn, glu, -polymer poly2, -coordset A, val, asp, arg|
-|Homodimer                 |Polymer with ATP ligand     |                    |
-|-molecule mymol, -polymer poly1, -coordset A, -coordset B, met, ala, asn, glu|   -molecule atpBinding, -polymer chainA, -coordset A, -sdfile atp.sdf, met, ala, asn, glu, lys   |
+| Option | Entry |
+| ------ | ----- |
+| Simple sequence |met, ala, asn, glu, lys |
+| Sequence starts at "5"      |met 5, ala, asn, glu, lys |
+| Sequence with breaks     |met 5, ala, asn 8, glu, lys, thr, his 15, arg, thr |
+| DNA/RNA sequence |dade, dthy, dgua, dcyt, rade, ruri, rgua, rcyt |         
+| Sequence with entity names  |-molecule fred, -polymer chainA, -coordset mono1, met 5, ala, asn, glu, lys |
+| Heterodimer| -molecule mymol, -polymer poly1, -coordset A, met, ala, asn, glu, -polymer poly2, -coordset A, val, asp, arg|
+| Homodimer  |-molecule mymol, -polymer poly1, -coordset A, -coordset B, met, ala, asn, glu|
+| Polymer with ATP ligand | -molecule atpBinding, -polymer chainA, -coordset A, -sdfile atp.sdf, met, ala, asn, glu, lys   |
+| DNA with negative resnum | -molecule quad, -polymer A, -coordset A, da -2, dt, dg 1, dc, -polymer B, -coordset B, dg -2, dc da 1, dt |
 
-##Atom Nomenclature
+
+## Atom Nomenclature
 
 Unfortunately, there are two schemes, rather than just one, for naming
 atoms that are in common use by NMR scientists. First, there is the
@@ -182,7 +188,7 @@ adjusting the residue numbering. This will not only change the residue
 numbers in the molecular topology, but also the residue numbers of any
 atom labels for peaks that are interpretable.
 
-##Atom Specifiers
+## Atom Specifiers
 
 Within NMRViewJ, atoms can be specified using a syntax as follows:
 
@@ -258,7 +264,7 @@ Note: the "nv\_atom elem ppm" command now returns "" (an empty string)
 if the atom doesn't have an assigned chemical shift (which I think is a
 better design than returning some stupid large negative number).
 
-##Structure Family Analysis
+## Structure Family Analysis
 
 The structure tool displayed here can identify "core" regions of the
 structure, calculate superpositions using the specified residue and atom
@@ -334,7 +340,7 @@ Rama
 The molecular viewer can display one or more structures to allow you to
 view the family of structures
 
-##RNA Viewer 
+## RNA Viewer 
 
 This tool allows displaying the secondary structure of RNA and can include
 the display of distance constraints and deuterium labeling.  Open the tool
@@ -395,7 +401,7 @@ turns all hydrogen atoms off, a value of 2 would display only the H2,H8,H5, and 
 would additionally allow display of ribose hydrogens (in order H1', H2', H3', H4', and H5').  Constraint lines
 are only drawn to displayed hydrogens.
 
-##Template Library
+## Template Library
 
 When generating a molecular structure in NMRVIEW by reading in a
 sequence file it is necessary to translate the residue names into the
