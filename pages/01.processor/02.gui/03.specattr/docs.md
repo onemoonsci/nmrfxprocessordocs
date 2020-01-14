@@ -121,13 +121,11 @@ display, but you need to select a schema to apply the updated colors to the spec
 
 ### View Panel
 ![View](images/spectrum_attr_view.png)
-The View panel is used to select plot regions and control which dimension
-of the dataset is displayed on which axis of the plot.  Note that some of these values can
+The View panel is used to select plot regions, control which dimension
+of the dataset is displayed on which axis of the plot, and control
+the display of integrals and regions.  Note that some of these values can
 be changed more quickly via the toolbar at the bottom of each spectrum window.  
 
-
-
-    
 ### 
 
 **X**
@@ -205,26 +203,125 @@ be changed more quickly via the toolbar at the bottom of each spectrum window.
     will be overlaid on top of the first plane. To draw a single plane,
     set both values equal to each other.
 
+####Integrals and Regions
+
+The Integrals and Regions section of the View tab can be used to
+turn on and off the display of integrals and regions and
+control aspects of their display.  The following figure
+shows a spectrum with both displayed.  Additionally, one
+integral has been selected, allowing its position to be
+adjusted.
+
+![Integrals and Regions](images/integrals_regions.png)
+
+Integrals
+
+:  Integral lines can be drawn on one-dimensional spectra.  Turn their
+display on or off with the Integrals check box.
+The position of the integrals display line is always a certain fraction of the
+vertical display region and the start and stop of this 
+can be controlled with the range slider.  The largest integral
+in the spectrum will occupy the full fractional range.  Other
+integral regions will be scaled proportionally to magnitude of the integral.
+
+Regions
+
+:  Regions (used for integration etc.) in one-dimensional spectra can
+also be displayed.  Use the **Regions** check box to turn their
+display on or off.  The regions will be displayed as a filled yellow
+box spanning the full y-range and the x-range between the start and
+stop of the region.
+
+
 ### Style Panel
-![View](images/spectrum_attr_style.png)
+![Style](images/spectrum_attr_style.png)
+
+The **Style** panel is used to control various colors, font sizes,
+borders and the display of a grid and dataset titles.
+
+Colors
+
+:  The colors section allows you to control the color of 
+the background, axes, and crosshairs.  Each attribute has
+a color chooser and a checkbox.  If the checkbox is turned off
+that attribute will use a color set in the main NMRFx 
+preferences dialog.  If it is turned on, you can set the
+color for this specfic spectrum with the color chooser.
+
+Fonts
+
+:  The font size for tic marks and axis labels can be selected
+with these two choosers.  When you change the font size
+the border will be increased to a large enough value that the
+tic mark labels and axis labels are fully visible.
+
+Borders
+
+:  These controls set a minimum border size for the top,bottom
+left and right borders (based on the position of the control).
+Note: the border size may be bigger than that seledcted if 
+a larger size is necessary based on the selected font sizes
+(see above).
+
+Grid
+
+:  If this checkbox is selected, then grid lines will be drawn.
+Grid lines are drawn at the position of the major tic marks (the
+ones with numerical labels).
+
+Titles
+
+:  If this checkbox is selected, then each dataset displayed
+in the spedctrum chart will have a title.
+For 2D (or higher)
+displays the labels will appear starting at top left of
+the spectrum.  If more than one dataset is present they
+will be arranged to the right of previous label.  If the
+top border is large enough the titles will appear in 
+the border area, otherwise they will appear just under
+the top border line (inside plot area).  For one-dimensional
+spectra the title will just above the spectrum baseline
+at the left edge of plot.  If multiple 1D datasets are
+present the vertical location depends on whether there
+is a vertical offset between each dataset.  If there 
+isn't, or it's too small, then a calculated vertical
+displacement will be used to offset the labels so
+they don't overlap.  If there is sufficient
+offset between spectra, then the title will
+be drawn just above each spectrums baseline.
 
 ### Slices Panel
 ![Slices](images/spectrum_attr_slices.png)
 
-Slices (1D vectors can be drawn in a horizontal and vertical orientation
+Slices (1D vectors extracted from dataset) can be drawn in a horizontal
+and vertical orientation
 across the spectrum.  Slices are turned on with the checkbox in the
 control region below the spectrum, and their appearance is controlled
-with this dialog.
+with this dialog.  Two slices can be drawn, one at the position of
+the black crosshairs and one at the position of the red crosshairs.
+By default, only the first is drawn.
 
-By default the slices are drawn with an offset to position them at the
+**Offset Tracking**
+
+:  By default the slices are drawn with an offset to position them at the
 center of the spectrum.  This offset value can be changed with the
-Vertical and Horizontal Sliders.  Alternatively, the slices can be
-automatically position to be drawn at the current postion of the 
-crosshairs.  This mode is turned on by selecting the "Offset Tracking"
-checkbox. The color of the slices can be selected by clicking on
-the "Slice Color" control.
+Vertical and Horizontal Sliders.  If the **Offset Tracking** 
+checkbox is selected then the slices will be
+automatically positioned to be drawn so they are centered at
+the current postion of the crosshairs.
 
-The vertical scale of the slices is controled with the Scale parameter.
+**Colors**
+
+::  By default, the slices are drawn with the color of the
+dataset they are slicing.  If you turn off the **Use Dataset Color**
+checkbox then the color of the slices will be controlled by
+the two (one for each pair of slices) color slectors.
+
+**Slice**
+
+:  The checkboxes under **On** is used to turn on / off the display
+of each pair (vertical/horizontal) of slices.  By default only
+the first (corresponding to the black crosshair position) is drawn.
 
 **Scale**
 
@@ -238,18 +335,20 @@ The vertical scale of the slices is controled with the Scale parameter.
     in the next field). Clicking on the down arrow lowers the scale
     level to a value equal to the current level divided by the current
     value of the multiplier (the value in the next field). Whenever the
-    **Level**value is changed the **Scale**value is changed to be 10.0
-    times the **Level**value as this generally provides good results.
+    **Level**value is changed the **Scale** value is changed to be 10.0
+    times the **Level** value as this generally provides good results.
 
 **Offset for Vertical Slices**
 
 :   Select a value using the slider to specify the offset position(from
-    0.0 to 1.0) at which X (and Z) slices are drawn. be drawn.
+    0.0 to 1.0) at which X (and Z) slices are drawn. be drawn.  Only
+    active if **Offset Tracking** is off.
 
 **Offset for Horizontal Slices**
 
 :   Select a value using the slider to specify the offset position(from
-    0.0 to 1.0) at which Y (and Z2) slices are drawn. be drawn.
+    0.0 to 1.0) at which Y (and Z2) slices are drawn. be drawn.  Only active
+    if **Offset Tracking** is off.
 
 ### Peak Selector Panel
 ![Peak Selector](images/spectrum_attr_peaksel.png)
@@ -423,8 +522,9 @@ assignment label for each peak dimension.
 
 **SglResidue**
 
-:   The label is composed of the unique residue numbers from the
-assignment label for each peak dimension.
+:   The label is composed of the unique residue number preceded by
+the single letter residue type.  Only applicable if the 
+peak dimension labels include this.
 
 **Atom**
 
@@ -433,23 +533,24 @@ label for each peak dimension.
 
 **Cluster**
 
-:   The label is composed of the atom fields from the assignment
-label for each peak dimension.
+:   The label is composed of the number of the cluster (as used
+in RunAbout) for each peak dimension.
 
 **User**
 
-:   The label is composed of the atom fields from the assignment
-label for each peak dimension.
+:   The label is composed of the user field for 
+for each peak dimension.
 
 **Summary**
 
-:   The label is composed of the atom fields from the assignment
-label for each peak dimension.
+:   The label is composed of a summary of information about
+the peak based on shift and multiplicdity.  Only 
+relevant for 1D peak lists.
 
 **PPM**
 
-:   The label is composed of the atom fields from the assignment
-label for each peak dimension.
+:   The label is composed of the chemical shift of the first
+dimension.  Normally used for 1D peak lists.
 
 
 
