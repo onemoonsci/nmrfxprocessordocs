@@ -9,27 +9,46 @@ taxonomy:
 
 ### File
 
-Open and Draw...
+Open FID...
 
-:    Display a file dialog in which you can select the NMR data set to open. Typically you will select an Agilent ".fid" directory, an Agilent "fid" file, or a Bruker "fid" or "ser" file, or an NMRView (.nv). If the file represents an FID, the file will be opened and the first row of raw data displayed.  If the file represents an NMRView format dataset, the dataset will be displayed (vector for 1D or contour plot for 2D or higher).  The dataset will be displayed in the currently active spectrum window.
+:    Display a file dialog in which you can select the unprocessed (FID) NMR data set to open.
+Typically you will select an Agilent ".fid" directory, an Agilent "fid" file, or a Bruker "fid" or "ser" file, or an NMRView (.nv). The file will be opened, the first row of raw data displayed,
+and the Processor window will be opened.
+
+Open Dataset...
+
+:    Display a file dialog in which you can select the processed  NMR data set to open.
+At present you can open NMRViewJ (.nv) and Sparky (.ucsf) format files.
+The dataset will be displayed (vector for 1D or contour plot for 2D or higher)
+in the currently active spectrum window.  If a dataset is already present it the
+active window it will be replaced with the new dataset.
 
 
-Open...
+Open Dataset (No Display)...
 
-:    Display a file dialog in which an NMRView format dataset can be opened.  The dataset will not be immediately drawn.  Instead use the attributes panel to choose one or more datasets to display in a window.
+:    Display a file dialog in which you can select a processed  NMR data set to open.
+The dataset will be opened in NMRFx, but won't be immediately displayed in a spectrum
+window.  You can select it for display later from the spectrum attributes window
+or using the Dataset icon in the toolbar of a spectrum window.
+
+Recent FIDS >
+
+:  A menu of recently opened unprocessed (FID) NMR datasets.  Selecting an item
+from the menu will cause it to be opened, and displayed in the active spectrum window.
+
+Recent Datasets>
+
+:  A menu of recently opened,  processed  NMR datasets.  Selecting an item
+from the menu will cause it to be opened, and displayed in the active spectrum window.
 
 New Window
 
-:    Create a new spectrum display window.   A dataset can be added to the window using the Attributes dialog or by using the Open and Draw menu item.
+:    Create a new spectrum display window.   
 
+New NMRFx Server
 
-Open and Draw Recent
-
-:    NMRFx Processor maintains a list of recently opened datasets.  Use the attached menu to select one of these to be opened and displayed in a spectrum window.
-
-Export PDF...
-
-:    Create a PDF file containing a rendering of the currently active spectrum.  Note:  at present, only the active spectrum chart in a single window will be exported to the file.
+:  Sets up a socket that can listen for commands from other applications.  Currently
+this can be done from the CoMD/NMR Dynamics Software.
 
 Export SVG...
 
@@ -56,13 +75,30 @@ Save As...
 
 :    Save the project into a new project directory. A file browser will appear that will allow you to choose a directory location in which to save the project.
 
+Close
+
+:  Close the current project.  After you confirm this action, all  molecules, peaklists
+and assignments will be discarded.
+
+Open STAR3
+
+:  Read a BMRB STAR3 format file.
+
+Save STAR3...
+
+:  Write project information (peakliss, assignments, molecules etc.) to a BMRB STAR3 format file.
+
+Open Sparky Project:
+
+:  Open a Sparky project file.  Save files reference in the project file and corresponding
+.ucsf datasets will also be opened.  This is a preliminary feature and some
+attributes of the Sparky files might not be imported properly or at all.
 
 ### Spectra
 
 Delete Spectrum
 
 :    Delete the active spectrum chart from a window that has more than one chart in it.  The remaining charts will be resized to fill the empty space.
-
 
 Arrange
 
@@ -85,6 +121,98 @@ Align Spectra
 Analyzer...
 
 :  Display the spectrum analysis window.  This allow you to measure intensities in a specified region of the spectrum (area with the crosshairs).
+
+Show Measure Bar...
+
+: Show a toolbar across the bottom of the spectrum with tools and displayed values used
+for measuring positions, position deltas, intensities and signal/noise ratio.
+
+Show Comparator...
+
+: Show a toolbar across the bottom of the spectrum with controls for selecting
+a pair from multiple datasets.  You can use it to do pairwise comparisons of
+spectra.
+
+Show Regions Analyzer...
+
+:  Show a window with controls for analzying spectral regions.  Regions can be added, adjusted
+split and removed. Peaks can be added to the region and an implementation of Objective 
+Deconvolution used to add peaks to the region to deconvolute overlapping signals.
+
+Copy Spectrum as SVG Text
+
+:  The spectral display can be copied to the clipboard as SVG (scalable vector graphics)
+text.  The result can be pasted into some graphics applications, but at present
+this only works for some applications.  For example, we have used this
+successfully with Affinity Designer on MacOS.
+
+### Molecules
+NMRFx can read in molecular structures in several different formats, including
+reading in a sequence and building a molecule from a residue library, reading
+PDB files and reading .mol/.sdf files.
+
+
+***File Menu***
+
+Read Sequence...
+
+:   Bring up a file selection dialog to select and open a file
+        containing an amino acid, DNA, or RNA sequence. See the section
+        on Molecular Structures to learn about the
+        format of this file.
+
+Read PDB...
+
+:   Bring up a file selection dialog to select and open a PDB format
+        file. This is the standard way to read in pdb files. NMRView
+        first reads the pdb file to determine the amino acid sequence.
+        Next, it reads the corresponding residues from the residue
+        library. Finally, it reads coordinates from the pdb file for
+        those atoms that have names matching the names in the residue
+        library. Atoms, that do not have a match in the residue library
+        will not be entered into the structure list. Atoms that are in
+        the residue library but not in pdb file, will be included in
+        structure list but will not be displayed. See the section on
+        Molecular Structures to learn about using
+        molecular structures in NMRView.
+
+Read PDB XYZ...
+
+:   Reads a file of atomic coordinates of a macromolecule. File must
+        be stored in the PDB format as defined by the Protein Data Bank
+        (now the RCSB). This command does not also read from the residue
+        library so no connectivity information is available. If this is
+        needed use the pdb command instead.
+
+Read Mol...
+
+:   Open a small molecule (.mol or .sdf) file.
+
+
+Sequence GUI
+
+: Display a window in which you can enter the single letter sequence
+for an Protein, RNA or DNA polymer.
+
+Atoms
+
+:   Select this to bring up the Assignments Panel that is
+    used to keep track of chemical shift assignments.
+
+Viewer
+
+: Display the molecular viewer.  This can be used to display the 3D structure,
+a 2D RNA sequence, or a 2D small molecule view.
+
+RDC Analysis...
+
+: Display the RDC Analysis window
+
+Show Spectrum Library
+
+: Display a toolbar at the bottom of the spectrum window that can be used
+to select and display the spectrum of molecules from the built-in metabolite
+library.
 
 ### View
 
@@ -111,6 +239,11 @@ Show Scanner
 
 :    Display the Scanner window.  The scanner can be used to process, display and analyze sets of spectra.
 
+RNA Label Scheme
+
+: Show a window that can be used to specify the isotopic labeling scheme for RNA
+molecules.
+
 
 ### Peaks
 
@@ -130,6 +263,21 @@ Show Peak Slider
 
 :    The Peak Slider will appear as a tool bar at the bottom of the current spectrum window.  When present peaks that are linked to each other will move together when any one peak is moved.  The toolbar provides tools for freezing (and "thawing") peaks into the current position so they can't be moved.
 
+Show Path Tool
+
+Show Multiplet AnalyzerA
+
+Show Ligand Scanner
+
+Assign Tools
+    
+    Show Peak Assigner
+
+    Show Assign on Pick
+
+    Show Atom Browser
+
+    Show RunAboutX
 
 ### Window
 
