@@ -6,10 +6,23 @@ taxonomy:
 
 ### Scripting the GUI with Python
 
+Tools for controlling the display of spectra from Python scripts are under
+development.  The following is a summary of currently available commands.
+These are all assocciated with the **nw** command.  So, for example, to
+expand the currently active window to the region contained within the
+crosshairs you would execute *nw.expand()*.
+
+The commands mostly operate
+on a single spectrum area (bounded by axes) which we refer to below
+as a **chart**.  Many commands operate on the currently active chart.  By default,
+this is the last chart created or the last one
+that the mouse was clicked in.
+
 ### active
 
-Get or set the active chart. By default, the currently active chart is the last created or last one
-that the mouse was clicked in.  When getting the active chart the command will return a name.
+Get or set the active chart. 
+
+When getting the active chart the command will return a name.
 When setting the active chart the argument can be a name of a chart, in which case it is specified as a string (i.e. in quotes),
 or it can be a number, in which case it is an index into the number of charts in the current stage (counting from 0).
 
