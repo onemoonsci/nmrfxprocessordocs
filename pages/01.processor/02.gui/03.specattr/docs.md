@@ -30,7 +30,9 @@ The Dataset Panel is used to control the colors and levels used to render the sp
 Multiple datasets can be assigned to a single spectrum chart.  Each dataset is represented by a row in the Dataset Table in this panel.Most columns of the header have a menu that appears when you right click on the header.  This provides controls that can be used
 to set the parameter for that column across the whole list of tables.  Most columns have at least a **unify** entry in the menu.  By setting the first rows entry to a certain value, and then choosing **unify** you will set all rows to that value.  This always applies the value in the first row to the remaining rows.  Menu entries that are specific to individual columns will be described below.
 
-By default, the rows displayed in the table correspond the datasets that are displayed in a single, active spectrum chart.  Choosing the Scene setting above the table displays all the datasets in the entired window (technically, the JavaFX Scene, hence the name).  This is useful if you want to change values for all the datasets in the window.
+By default, the rows displayed in the table correspond to the datasets that are displayed in a single, active spectrum chart.  Choosing the Scene setting above the table displays all the datasets in the entired window (technically, the JavaFX Scene, hence the name).  This is useful if you want to change values for all the datasets in the window.
+
+At the bottom of the table is an attribute selector and slider.  Use the selector to choose an attribute (lvl, offset, nlvl, and clm).  You can then adjust the slider to change the value of that parameter.  As you move the slider the value in the table and the spectrum in the associated chart will update.  If any of the rows in the dataset table are selected the parameter value for those selected datasets will be adjusted.  If no datasets are selected then the value for all datasets will be updated.
 
 The columns in the table are as follows:
 
