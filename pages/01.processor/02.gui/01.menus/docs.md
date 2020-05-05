@@ -265,11 +265,23 @@ Show Peak Slider
 
 Show Path Tool
 
-Show Multiplet AnalyzerA
+:    Display a tool at the bottom of the spectrum window that can be used for
+finding and measuring peak paths present in experiments such as ligand
+or pressure titrations.
+
+Show Multiplet Analyzer
+
+:  Display a window containing tools for analyzing multiplets in one-dimensional spectra.
 
 Show Ligand Scanner
 
-Assign Tools
+:  Display a window containing tools for analyzing shifted peaks including
+minimum chemical shift changes and PCA analysis.
+
+**Assign Tools**
+
+   These are all prototypes of new tools for assigning proteins and RNA.  Under rapid
+development
     
     Show Peak Assigner
 
@@ -281,7 +293,7 @@ Assign Tools
 
 ### Window
 
-Various menu items for showing and windows.  The menu items available are platform dependent.
+Various menu items for showing windows.  The menu items available are platform dependent.
 
 ### Help
 
@@ -299,6 +311,12 @@ NMRFx Publication
 ## Top Toolbar
 
 ![Top ToolBar](images/toolbar.png)
+
+Datasets
+
+:  Click this icon to get a pop-window listing all open datasets.  You can then
+click on an entry and drag it into a spectrum window to display it.
+
 Open
 
 :    Display a file dialog in which you can select the NMR data set to open. Typically you will select an Agilent ".fid" directory, an Agilent "fid" file, or a Bruker "fid" or "ser" file. The file will be opened and the first row of raw data displayed.
@@ -314,6 +332,15 @@ Refresh
 Halt
 
 :    Halt the drawing of the current display. Especially useful for datasets that take longer than a few seconds to draw.
+
+Undo
+
+:  Undo the last change in spectral view (display region and levels).  Multiple
+undo actions are stored in a history so they can be redone.
+
+Redo
+
+:  Redo the last last undone command (from the history).
 
 Full
 
@@ -346,7 +373,6 @@ Lower
 Pick
 
 :    Peak pick the spectrum.  The region picked is the currently displayed window or the region contained between the crosshairs (if they are present).  The threshold level used for picking 2D and higher dimension datasets will be the current contour level.  The threshold for 1D datasets will be the position of the black, horizontal crosshair.  Picked peaks will be displayed and the peak information immediately saved in a text file in the NMRViewJ .xpk format in a file in the directory containing the dataset.  If the spectrum already has a peaklist then the new peaks will add or replace existing peaks depending on whether peaks are present in the pick region.  If peaks are present, the current list will be cleared and replaced with the new peaks.  If no existing peaks are present in the region, then the new peaks will be appended on to the list of existing peaks.  Peaks can be selected, moved and resized with the cursor in Selection mode.
-This is a very early implementation of the peak tools.  Full peak analysis should be done in NMRViewJ until more peak tools are added to NMRFx Processor.
 
 NvJ
 
@@ -400,6 +426,7 @@ Complex
 
 ![](images/vector_slider.png)
 
+This tool is only displayed in Processing mode.
 At the left side of the data display are two controls, a combobox near the top, and a slider control along the left edge. Typically in 2D, phase sensitive, NMR spectra two data vectors are collected for each time point which differ from each other in the phase of one of the pulses by 90 degrees. With higher dimensional datasets an increasing number of data vectors are collected for each time increment. The combo box at top can be used to select which of the group of data vectors associated with a given time increment are to be displayed. This can be useful in determining whether you've set up the right type of data combination operations.
 
 The slider control can be used to scroll through all the 1D vectors along the active dimension.  As you slide the control any current processing operations for the active dimension will be applied to the vector before display.
