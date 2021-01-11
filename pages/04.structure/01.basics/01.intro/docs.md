@@ -6,19 +6,51 @@ taxonomy:
 
 # NMRFx Structure
 
-NMRFx Structure can be used to generate and analyze macromolecular structures and predict chemical shifts.  It can be run in two different ways.  First, if the command is invoked with one of several subcommands (batch, gen, predict, score, summary, super, or train) a predefined mode will be executed.  Alternatively, one can simply give as an argument a Python (actually Jython) script which will be executed.  The script has access to standard Python functions (including the standard Python library) and to specific commands provided by the NMRFx Structure program's Java code. The predifined subcommands are listed below along with documentation for usage and an example for demonstration.
+Documentation applies to versions 11.1.9 and later.
+
+NMRFx Structure can be used to generate and analyze macromolecular structures and predict chemical shifts.  It can be run in two different ways.  First, if the command is invoked with one of several subcommands (batch, gen, predict, score, summary, super, or train) a predefined mode will be executed.  Alternatively, one can simply give as an argument a Python (actually [Jython](http://jython.org)) script which will be executed.  The script has access to standard Python functions (including the standard Python library) and to specific commands provided by the NMRFx Structure program's Java code. The predifined subcommands are listed below along with documentation for usage and an example for demonstration.
 
     usage: nmrfxs batch|gen|predict|score|summary|super|train|script.py
 
-## List of subcommands :
+[gen][genlink]
+:  Generate a structure consistent with specified topology and restraints
 
-### gen
+[batch][batchlink]
+:  Submit multiple invocations of the [gen][genlink] command to generate a family of structures
+
+[predict][predictlink]
+:  Predict chemical shifts of proteins, RNA and small organic molecules
+
+[score][scorelink]
+:  Analyze structure files (PDB) for consistency with restraints
+
+[summary][summarylink]
+:  Summarize violations in the energy reports from a structure calculation
+
+[super][superlink]
+:   Superimpose structures and report RMS deviations.
+
+[train][trainlink]
+:   Train chemical shift prediction algorithm.
+
+
+## Subcommands :
+
+### gen [genlink]
 
 ```
 nmrfxs gen [ -s gen|all|refine ] [ -s seed ] [ -d directory ] [ -r report ] [ projectFile ] [ script.py ]
 ```
 
 Generate a single structure using data specified in a project file and initializing the random number generator with a specified seed.  This is useful for testing out the project file before generating a whole family of structures with the batch command.  An *output* directory will be created if not present.  After successful execution, the generated PDB and violation files will be written to that directory.  The output files will have the seed number appended to them (i.e. temp0.pdb, temp0.txt, etc.). By default, the *output* directory gets placed in the current directory, however, the relative path to a different directory can be specified using the directory option. When debugging a structure generated, it may be useful to view the energy violations for all the constraints specified in the project file. To do this, specify the report option.  This will output constraint violations at prepartion stage into a file named energyDump$seed_prep.txt within the *output* directory. Lastly, define torsional angle molecular dynamic procedures in an executable script to replace the builtin annealing protocol. If a python script is specified as the last argument of the command, the script will be executed. The script can alternatively be placed inside the project file replacing the annealing data block.
+
+
+Generating a structure requires specifying the molecular information, restraints and parameters for the rotational dynamics.  This can be done by specifying a YAML file and/or a NEF file.
+[YAML](https://en.wikipedia.org/wiki/YAML) files are human readable data files that hava a relatively simple structure without a lot of "fluff".  Project yaml files are described [below][yamllink].
+
+The protocol used for structure calculation proceeds through a seris of [**stages**][stagelink].  These stages involve preparation, high temperature dynamics, simulated annealing and low temperature dynamics.  The stages are predefined in code and have specific values for [Parameters][parameterlink] and [Forces][forcelink].  The user can adjust any of the parameters in a stage or introduce new stages by adding sections to the [yaml][yamllink] file.
+
+
 
 __Examples__: 
 
@@ -57,7 +89,7 @@ __Examples__:
 **-n** *NEFoutFile*
 :  Name of nef file to write.
 
-### batch
+### batch [batchlink]
 
 ```
 nmrfxs batch [OPTIONS] projectFile
@@ -103,7 +135,7 @@ __Example__:
 `nmrfxs batch -n 100 -k 10 -p 5 -a project.yaml`
 
 
-### predict
+### predict [predictlink]
 
 NMRFx Structure can predict chemical shifts of proteins and RNA and arbitrary small, organic molecules.
 Protein predictions are done using geometric attributes (primarily dihedral angles and ring-current shifts).  RNA
@@ -189,7 +221,7 @@ __Examples__:
 
 * `nmrfxs predict project.yaml`
 
-### score
+### score [scorelink]
 
 ```
 nmrfxs score [OPTIONS] projectFile [pdbFile1.pdb, pdbFile2.pdb, ...]
@@ -226,7 +258,7 @@ __Examples__:
 * `nmrfxs score -y project.yaml -p 'pdb/\*.pdb'`
 
 
-### summary
+### summary [summarylink]
 
 ```
 nmrfxs summary [final/final1.txt, final/final2.txt, ...]
@@ -259,7 +291,7 @@ The output will be placed in a file named analysis.txt and wil have a format lik
 
 
 
-### super
+### super [superlink]
 
 Calculate the superpostion of a set of models.  Multiple cycles (specified with -n flag) of superpostion are done to identify
 regions that are considered core.  Core residues are identified as those residues whose rms value is less than twice the median of the rms for all residues.  Superimmposed structures can be output into multiple pdb files 
@@ -295,9 +327,379 @@ or a single  MMcif file.
 -n *NCORE*
 :  Number of core residue cycles. Default is 5.
 
-### train
+### train [trainlink]
 *Information pending...*
 
 
-### script.py
+### script.py [scriptlink]
 
+If a python script is provided, instead of one of the above subcommands the script will be executed.
+
+
+## YAML project files [yamllink]
+
+The YAML files contain information about the molecular structure, restraints (distances, angles etc.) and parameters of the dynamics trajectory.
+It is perhaps best illustrated with a few examples.
+
+The following example indicates that a sequence file should be read from the file 1d3x.seq in the input folder and is  in **nv** format. The **nv**  format is that used by NMRViewJ and is similar to that of CYANA. 
+Angle and distance restraints are read from the specified files, which are in XPLOR format.
+
+The structure calculation happens through a process of simulated annealing with rotational dynamics and only happens if there is an **anneal** section in the file.  The dynOptions section specifies that 15000 steps of dynamics will be done starting at a temperature of 5000. Note the force field etc. is not calibrated such that temperature values have physical meanings.  Every 20 steps of dynamics atoms that have ambiguous stereochemistry (like HB2/3) are swapped and the configuration with lowest energy is retained.
+
+```
+molecule :
+    file : input/1d3z.seq
+    type : nv
+    chain : 'A'
+
+angles :
+    - file : input/dih.tbl
+      type : xplor
+
+distances :
+    -
+      file : input/dis.tbl
+      type : xplor
+    -
+      file : input/hydcon.tbl
+      type : xplor
+
+anneal:
+    dynOptions :
+        steps : 15000
+        highTemp : 5000.0
+    param :
+        swap : 20
+```
+
+Here's an example of where the molecular structure and restraints are stored in a NEF file.
+
+```
+nef : input/1gb1.nef
+  
+anneal :
+    dynOptions :
+        steps : 15000
+        highTemp : 5000.0
+    param :
+        swap : 20
+```
+
+Here's an example of .yaml file for an  RNA where the sequence is explicitly listed in the .yaml file.  
+The indexing renumbers the sequence, in this case so it matches the numbering in the full virus sequence that this sequence is from.
+The ptype parameter indicates that the sequence is RNA.  In this example there are no explicit distance or angle restraints give in separate files.
+Instead the vienna (dot-bracket) sequence is used to specify the secondary structure.  Distance and angle restraints consistent with the helical (base-paired) region
+are automaticallly generated.  The **ribose : Constrain** value generate distance restraints to close up the ribose rings.
+
+
+
+```
+molecule :
+  entities :
+      - sequence : GGCUCUGGUGAGAGCCAGAGCC
+        indexing : '1:2 125:135 217:225'
+        ptype : RNA
+
+rna:
+    ribose : Constrain
+    vienna : (((((((((....)))))))))
+
+anneal:
+    dynOptions :
+        steps : 15000
+        highTemp : 5000.0
+        dfreeSteps : 0
+    force :
+        tors : 0.1
+        irp : -0.2
+```
+### Annealing Options (DynOptions)
+
+There are a variety of parameters that effect the protocol used for simulated annealing in structure generation.  The most likely ones that a user might want to change from the default value are **steps**, **highTemp** and **cffSteps**.  Most other parameters can be left at their default values. 
+
+These parameters apply to the overall protocol and are set in the **dynOptions** section of the **anneal** section of the .yaml file.
+
+steps
+:  Total number of dynamics steps to execute in annealing protocol (15000)
+
+cffSteps
+:  If this is greater than 0 then two stages are added to the protocol that are 
+performed with complex non-bond force field turned on (0).
+
+highTemp
+:  Initial dynamics are done at this temperature
+
+medFrac
+:  Medium temperature of annealing profile is highTemp times this value.(0.05)
+
+update:
+:  Update non bond contact list every *update* cycles. (20)
+
+
+highFrac:
+:  Run dynamics at high temperature for this fraction of total steps (0.3)
+
+toMedFrac:
+:  Fraction of steps during annealing phase that happen in first part of phase(0.5)
+
+timeStep
+:  Initial time step, but time step will be optimized automatically (4.0)
+
+stepsEnd
+:  Numer of steps of dynamics at the end at zero temperature (100)
+
+econHigh
+:  Energy conservation used in adjusting time steps at high temperature (0.005)
+
+econLow
+:  Energy conservation used in adjusting time steps at low temperature (0.001)
+
+timePowerHigh
+:  Exponent in power function used in annealing profile from high to medium temperature (4.0)
+
+timePowerMed
+:  Exponent in power function used in annealing profile from medium to low temperature (4.0)
+
+minSteps
+:  Numer of gradient minimization steps before annealing phases (medium and low) (100)
+
+polishSteps
+:  (500)
+
+dfreeSteps
+:  Numer of derivative free minimization steps before each stage (0)
+
+dfreeAlg
+:  Algorithm used for derivative free minimization steps (cmaes)
+
+kinEScale
+: Scaling parameter used in calculating kinetic energy  (200)
+
+
+### Parameters [parameterlink]
+
+
+coarse
+:  If true, use coarse grain mode
+
+dislim
+:  Only include atoms in the non-bond contact list that are less than this distance apart.
+
+end
+:  Only include non-bond contacts and distances that are less than this number of residues apart.
+
+hardsphere
+:  A value added on to the radius of non-hydrogen atoms that have attached hydrogens, when explicit hydrogens aren't used.
+
+shrinkValue
+:  Reduce the size of non-hydrogens by this amount.
+
+shrinkHValue
+:  Reduce the size of hydrogen atoms by this amount
+
+swap
+:  Swap ambigous stereospecific atoms at intervals of this number of steps. After swapping test the energy and see if it is lower.  If so, keep the swap.
+
+updateAt
+:  Update the non-bond contact list at intervals of this number of steps.
+
+useh
+:  If true, include hydrogens in non-bond contacts.
+
+
+### Force terms [forcelink]
+
+The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen][genlink]
+
+bondWt
+:  The weight for distance restraints that involve bonds (for example, to close ribose rings).
+
+cffnb
+:  Complex Force Field repulsion function.  Currently based on AMBER non-bond contact values. By default it is set to -1.0, so not used.  Instead the default is the simple repulsive function.
+
+dih
+: The weight for experimental dihedral angle  restraints
+
+dis
+: The weight for experimental distance restraints
+
+elec
+:  Electrostatics.  Not currently used
+
+irp
+: The weight for intrinsic rotational potential.  Currently based on AMBER parameters.
+
+nbmin
+:  An value that attenuates the non-bond contact (when cffnb > 0.0).  Values can range from 0.5 - 1.25, and set a lower limit on the distance used as input to the non-bond force calculation.  So if set to 0.5, even if inter-atomic distance is 0.1, a distance of 0.5 will be used.  This prevents the energy for getting too high when the structure is in being calculated.
+
+repel
+:  Simple repulsion function to keep atoms apart.  Only used if cffnb < 0.0, which is the default
+
+shift
+: The weight for experimtal chemical shift values.  Derivatives are not currently available so this is only active in derivative-free steps.
+
+stack
+: The weight for RNA base stacking.
+ 
+tors
+:  The weight for the torsion angles of the RNA backbone.  Based on the the distance of the angles for a residue to the angles of the nearest suite.
+
+
+
+### Stages [stagelink]
+
+Structure calculation and refinement in NMRFX Structure proceeds through a series of stages that represent a process of simulated annealing.  Each stage has preset values for [Parameters][parameterlink] and [Forces][forcelink].  The values specify a static or falling temperature to be used during that stage as well as parameters that effect what atoms are included in the non-bond contacts and the forces used in the energy calculation.  These preset values can be overwritten by entering values for any stage in the .yaml file.  A normal structure calculation using the [gen][genlink] command proceeds through the following stages.  The full set of parameters and force values for each stage can be seen [below][allstageslink].
+
+
+stage_prep
+:  This stage prepares the structure for the dynamics by first minimizing bad contacts and violations.  It does this by a series of gradient minimization steps.  Hydrogen atoms are not included in the list of atoms to be checked for contacts.  This is partially compensated by increasing the diameter of atoms with attached hydrogens.  The size of the heavy atoms that are included are reduced somewhat to allow the structure to more easily change its conformation.
+
+stage_hi
+:  High temperature dynamics are performed for a number of steps calculated using the *highFrac* [Parameter][parameterlink].  Performing dynamics at high temperature allows the structure to undergo large changes in conformation.
+
+stage_anneal_hi
+:  Annealing involves gradually lowering the temperature according to some predefined schedule.  In this stage the temperature is lowered from the value used in **stage_hi** to a medium temperature
+
+stage_anneal_med
+:  Annealing proceeds with the temperature falling from the medium temperature to the low temperature.  As the temperature falls the conformation will be less likely to undergo large changes.  The number of steps used is a fraction (switchFrac) of the number of steps in the annealing phase.  In this stage the reduction of size (shrinkValue) is set to 0.0 so that atoms are prevented from approaching as closely as was the case in the previous stage.  During this stage the *econVal* changes so that the adjustment of the time step is done in a way that the calculated kinetic energy more closely approximates that expected for the target temperature.
+
+stage_anneal_low 
+:  The temperature is dropped from the low temperature down to 0.0.  During this phase hydrogen atoms are included in the non-bond contact list.
+
+stage_low
+:  Additional dynamics steps are done at a temperature of 0.0
+
+A final of gradient minimization is also included.  The number of steps of this polishing phase is set by the **polishSteps** parameter.  Otherwise this is not (yet) a full stage that can be modified like the other stages.
+
+If the **cffSteps** parameter is set to a value greater than 0 then two additional stages will be inserted after the **stage_anneal_low** stage.  These two stages, **stage_cff_reduced** and **stage_cff_full** are done with the non-bond contact forces calculated using a more realistic, but slower, calculation.  These forces are based on parameters from the AMBER force field.
+
+stage_cff_reduced
+:  In this phase the non-bond contacts term is attenuated for closely contacting atoms so that the energies (and their gradients) don't get too high and cause problems in the dynamics calculations.  This is done by setting the **nbmin** value to 1.0 so that inter-atomic distances less than 1.0 are calculated as if the value was approximately 1.0.  By default 20% of the cff steps are done in this stage.
+
+stage_cff_full
+:  The nbmin value is reduced to 0.5.
+
+All the built-in stages can be displayed using the **nmrfxs gen -y mode** command which will print out all the stages in yaml format.
+
+The **mode** argument specifies what stages are reported and can be **gen**, **refine**, **cff** or **all**.  The output below was generated with:
+
+    nmrfxs gen -y all
+
+You can also specify the name of a **NEF** file and it will be inserted into the output to give a complete project file that can be executed.  For example to generate a full yaml file that will generate a structure based on data in **test.nef** you would use:
+
+    nmrfxs gen -y gen -n test.nef > project_test.yaml
+
+and then generate a structure with
+
+    nmrfxs gen project_test.yaml
+
+Note:  you don't need to generate a full yaml file for structure calculation as the normal gen command will use the default stages.  But generating one as described here allows you to inspect and modify the values used in each stage.
+
+#### All Stages [allstageslink]
+
+Here's the output listing all available stages:
+
+
+```
+anneal:
+    dynOptions: 
+        steps : 15000
+        highTemp : 5000.0
+    stage_prep:
+        param : 
+            dislim : 4.6
+            swap : 20
+            updateAt : 5
+            hardSphere : 0.15
+            useh : False
+            shrinkValue : 0.2
+        ends : [3, 10, 20, 1000]
+        force : 
+            dih : 5
+            irp : 0.05
+            dis : 1.0
+            repel : 0.5
+    stage_hi:
+        timestep : 4.0
+        dfreeSteps : None
+        switchFracVal : None
+        tempVal : 5000.0
+        econVal : 0.005
+        gMinSteps : None
+        param : 
+            updateAt : 20
+            hardSphere : 0.15
+            useh : False
+            end : 1000
+            shrinkValue : 0.2
+        force : 
+            dih : 5
+            dis : 1.0
+            repel : 0.5
+        nStepVal : 4500
+    stage_anneal_hi:
+        switchFracVal : None
+        tempVal : [5000.0, 250.0, 4.0]
+        econVal : 0.005
+        gMinSteps : None
+        param : 
+        force : 
+        nStepVal : 5200
+    stage_anneal_med:
+        switchFracVal : 0.65
+        tempVal : [250.0, 1.0, 4.0]
+        econVal : [0.005, 0.5]
+        gMinSteps : 100
+        param : 
+            hardSphere : 0.0
+            useh : False
+            shrinkValue : 0.0
+        force : 
+        nStepVal : 5200
+    stage_anneal_low:
+        switchFracVal : None
+        tempVal : None
+        econVal : None
+        gMinSteps : 100
+        param : 
+            shrinkHValue : 0.0
+            hardSphere : 0.0
+            useh : True
+            shrinkValue : 0.0
+        force : 
+            bondWt : 25.0
+            repel : 1.0
+        nStepVal : None
+    stage_cff_reduced:
+        switchFracVal : 0.2
+        tempVal : [100.0]
+        param : 
+            dislim : 6.0
+        force : 
+            nbmin : 1.0
+            dih : 5.0
+            stack : 0.1
+            irp : 0.5
+            tors : -0.1
+            dis : 40.0
+            repel : -1.0
+            cffnb : 1.0
+        nStepVal : 0
+    stage_cff_full:
+        switchFracVal : None
+        param : 
+        force : 
+            nbmin : 0.5
+            repel : -1.0
+            cffnb : 1.0
+        nStepVal : None
+    stage_low:
+        switchFracVal : None
+        tempVal : 0.0
+        econVal : 0.001
+        gMinSteps : 100
+        param : 
+        force : 
+            repel : 2.0
+        nStepVal : 100
+```
