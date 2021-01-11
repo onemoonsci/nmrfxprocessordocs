@@ -12,11 +12,11 @@ NMRFx Structure can be used to generate and analyze macromolecular structures an
 
     usage: nmrfxs batch|gen|predict|score|summary|super|train|script.py
 
-[gen][genlink]
+[gen](#genlink)
 :  Generate a structure consistent with specified topology and restraints
 
 [batch][batchlink]
-:  Submit multiple invocations of the [gen][genlink] command to generate a family of structures
+:  Submit multiple invocations of the [gen](#genlink) command to generate a family of structures
 
 [predict][predictlink]
 :  Predict chemical shifts of proteins, RNA and small organic molecules
@@ -36,7 +36,7 @@ NMRFx Structure can be used to generate and analyze macromolecular structures an
 
 ## Subcommands :
 
-### gen [genlink]
+### gen <a id="genlink"></a>
 
 ```
 nmrfxs gen [ -s gen|all|refine ] [ -s seed ] [ -d directory ] [ -r report ] [ projectFile ] [ script.py ]
@@ -509,7 +509,7 @@ useh
 
 ### Force terms [forcelink]
 
-The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen][genlink]
+The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink)
 
 bondWt
 :  The weight for distance restraints that involve bonds (for example, to close ribose rings).
@@ -548,7 +548,7 @@ tors
 
 ### Stages [stagelink]
 
-Structure calculation and refinement in NMRFX Structure proceeds through a series of stages that represent a process of simulated annealing.  Each stage has preset values for [Parameters][parameterlink] and [Forces][forcelink].  The values specify a static or falling temperature to be used during that stage as well as parameters that effect what atoms are included in the non-bond contacts and the forces used in the energy calculation.  These preset values can be overwritten by entering values for any stage in the .yaml file.  A normal structure calculation using the [gen][genlink] command proceeds through the following stages.  The full set of parameters and force values for each stage can be seen [below][allstageslink].
+Structure calculation and refinement in NMRFX Structure proceeds through a series of stages that represent a process of simulated annealing.  Each stage has preset values for [Parameters][parameterlink] and [Forces][forcelink].  The values specify a static or falling temperature to be used during that stage as well as parameters that effect what atoms are included in the non-bond contacts and the forces used in the energy calculation.  These preset values can be overwritten by entering values for any stage in the .yaml file.  A normal structure calculation using the [gen](#genlink) command proceeds through the following stages.  The full set of parameters and force values for each stage can be seen [below][allstageslink].
 
 
 stage_prep
