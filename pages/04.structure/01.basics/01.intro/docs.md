@@ -336,7 +336,7 @@ or a single  MMcif file.
 If a python script is provided, instead of one of the above subcommands the script will be executed.
 
 
-## YAML project files <a id="yamllink"></a>
+###<a id="yamllink">YAML Project Files</a>
 
 The YAML files contain information about the molecular structure, restraints (distances, angles etc.) and parameters of the dynamics trajectory.
 It is perhaps best illustrated with a few examples.
@@ -509,7 +509,7 @@ useh
 
 ### <a id="forcetermslink">Force Terms</a>
 
-The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink)
+The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink).  Generally, if a force term has a value < 0.0, then that componnet will not be included.
 
 bondWt
 :  The weight for distance restraints that involve bonds (for example, to close ribose rings).
