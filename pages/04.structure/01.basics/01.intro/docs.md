@@ -15,22 +15,22 @@ NMRFx Structure can be used to generate and analyze macromolecular structures an
 [gen](#genlink)
 :  Generate a structure consistent with specified topology and restraints
 
-[batch][batchlink]
+[batch](#batchlink)
 :  Submit multiple invocations of the [gen](#genlink) command to generate a family of structures
 
-[predict][predictlink]
+[predict](predictlink)
 :  Predict chemical shifts of proteins, RNA and small organic molecules
 
-[score][scorelink]
+[score](#scorelink)
 :  Analyze structure files (PDB) for consistency with restraints
 
-[summary][summarylink]
+[summary](#summarylink)
 :  Summarize violations in the energy reports from a structure calculation
 
-[super][superlink]
+[super](#superlink)
 :   Superimpose structures and report RMS deviations.
 
-[train][trainlink]
+[train](#trainlink)
 :   Train chemical shift prediction algorithm.
 
 
@@ -46,9 +46,9 @@ Generate a single structure using data specified in a project file and initializ
 
 
 Generating a structure requires specifying the molecular information, restraints and parameters for the rotational dynamics.  This can be done by specifying a YAML file and/or a NEF file.
-[YAML](https://en.wikipedia.org/wiki/YAML) files are human readable data files that hava a relatively simple structure without a lot of "fluff".  Project yaml files are described [below][yamllink].
+[YAML](https://en.wikipedia.org/wiki/YAML) files are human readable data files that hava a relatively simple structure without a lot of "fluff".  Project yaml files are described [below](#yamllink).
 
-The protocol used for structure calculation proceeds through a seris of [**stages**][stagelink].  These stages involve preparation, high temperature dynamics, simulated annealing and low temperature dynamics.  The stages are predefined in code and have specific values for [Parameters][parameterlink] and [Forces][forcelink].  The user can adjust any of the parameters in a stage or introduce new stages by adding sections to the [yaml][yamllink] file.
+The protocol used for structure calculation proceeds through a seris of [**stages**](#stagelink).  These stages involve preparation, high temperature dynamics, simulated annealing and low temperature dynamics.  The stages are predefined in code and have specific values for [Parameters](#parameterlink) and [Forces](#forcelink).  The user can adjust any of the parameters in a stage or introduce new stages by adding sections to the [yaml](#yamllink) file.
 
 
 
@@ -89,7 +89,7 @@ __Examples__:
 **-n** *NEFoutFile*
 :  Name of nef file to write.
 
-### batch [batchlink]
+### batch <a id="batchlink"></a>
 
 ```
 nmrfxs batch [OPTIONS] projectFile
@@ -135,7 +135,7 @@ __Example__:
 `nmrfxs batch -n 100 -k 10 -p 5 -a project.yaml`
 
 
-### predict [predictlink]
+### predict <a id="predictlink"></a>
 
 NMRFx Structure can predict chemical shifts of proteins and RNA and arbitrary small, organic molecules.
 Protein predictions are done using geometric attributes (primarily dihedral angles and ring-current shifts).  RNA
@@ -221,7 +221,7 @@ __Examples__:
 
 * `nmrfxs predict project.yaml`
 
-### score [scorelink]
+### score <a id="scorelink"></a>
 
 ```
 nmrfxs score [OPTIONS] projectFile [pdbFile1.pdb, pdbFile2.pdb, ...]
@@ -258,7 +258,7 @@ __Examples__:
 * `nmrfxs score -y project.yaml -p 'pdb/\*.pdb'`
 
 
-### summary [summarylink]
+### summary <a id="summarylink"></a>
 
 ```
 nmrfxs summary [final/final1.txt, final/final2.txt, ...]
@@ -291,7 +291,7 @@ The output will be placed in a file named analysis.txt and wil have a format lik
 
 
 
-### super [superlink]
+### super <a id="superlink"></a>
 
 Calculate the superpostion of a set of models.  Multiple cycles (specified with -n flag) of superpostion are done to identify
 regions that are considered core.  Core residues are identified as those residues whose rms value is less than twice the median of the rms for all residues.  Superimmposed structures can be output into multiple pdb files 
@@ -327,16 +327,16 @@ or a single  MMcif file.
 -n *NCORE*
 :  Number of core residue cycles. Default is 5.
 
-### train [trainlink]
+### train <a id="trainlink"></a>
 *Information pending...*
 
 
-### script.py [scriptlink]
+### script.py <a id="scriptlink"></a>
 
 If a python script is provided, instead of one of the above subcommands the script will be executed.
 
 
-## YAML project files [yamllink]
+## YAML project files <a id="yamllink"></a>
 
 The YAML files contain information about the molecular structure, restraints (distances, angles etc.) and parameters of the dynamics trajectory.
 It is perhaps best illustrated with a few examples.
@@ -476,7 +476,7 @@ kinEScale
 : Scaling parameter used in calculating kinetic energy  (200)
 
 
-### Parameters [parameterlink]
+### Parameters <a id="parameterlink"></a>
 
 
 coarse
@@ -507,7 +507,7 @@ useh
 :  If true, include hydrogens in non-bond contacts.
 
 
-### Force terms [forcelink]
+### Force terms <a id="forcetermslink"></a>
 
 The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink)
 
@@ -546,16 +546,16 @@ tors
 
 
 
-### Stages [stagelink]
+### Stages <a id="stagelink">Stages</a>
 
-Structure calculation and refinement in NMRFX Structure proceeds through a series of stages that represent a process of simulated annealing.  Each stage has preset values for [Parameters][parameterlink] and [Forces][forcelink].  The values specify a static or falling temperature to be used during that stage as well as parameters that effect what atoms are included in the non-bond contacts and the forces used in the energy calculation.  These preset values can be overwritten by entering values for any stage in the .yaml file.  A normal structure calculation using the [gen](#genlink) command proceeds through the following stages.  The full set of parameters and force values for each stage can be seen [below][allstageslink].
+Structure calculation and refinement in NMRFX Structure proceeds through a series of stages that represent a process of simulated annealing.  Each stage has preset values for [Parameters](#parameterlink) and [Forces](#forcelink).  The values specify a static or falling temperature to be used during that stage as well as parameters that effect what atoms are included in the non-bond contacts and the forces used in the energy calculation.  These preset values can be overwritten by entering values for any stage in the .yaml file.  A normal structure calculation using the [gen](#genlink) command proceeds through the following stages.  The full set of parameters and force values for each stage can be seen [below](#allstageslink).
 
 
 stage_prep
 :  This stage prepares the structure for the dynamics by first minimizing bad contacts and violations.  It does this by a series of gradient minimization steps.  Hydrogen atoms are not included in the list of atoms to be checked for contacts.  This is partially compensated by increasing the diameter of atoms with attached hydrogens.  The size of the heavy atoms that are included are reduced somewhat to allow the structure to more easily change its conformation.
 
 stage_hi
-:  High temperature dynamics are performed for a number of steps calculated using the *highFrac* [Parameter][parameterlink].  Performing dynamics at high temperature allows the structure to undergo large changes in conformation.
+:  High temperature dynamics are performed for a number of steps calculated using the *highFrac* [Parameter](#parameterlink).  Performing dynamics at high temperature allows the structure to undergo large changes in conformation.
 
 stage_anneal_hi
 :  Annealing involves gradually lowering the temperature according to some predefined schedule.  In this stage the temperature is lowered from the value used in **stage_hi** to a medium temperature
@@ -595,7 +595,7 @@ and then generate a structure with
 
 Note:  you don't need to generate a full yaml file for structure calculation as the normal gen command will use the default stages.  But generating one as described here allows you to inspect and modify the values used in each stage.
 
-#### All Stages [allstageslink]
+#### All Stages <a id="allstageslink"></a>
 
 Here's the output listing all available stages:
 
