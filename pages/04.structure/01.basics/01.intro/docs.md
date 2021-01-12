@@ -34,7 +34,7 @@ NMRFx Structure can be used to generate and analyze macromolecular structures an
 :   Train chemical shift prediction algorithm.
 
 
-## Subcommands :
+## Subcommands
 
 ### <a id="genlink">gen</a>
 
@@ -50,7 +50,9 @@ Generating a structure requires specifying the molecular information, restraints
 
 The protocol used for structure calculation proceeds through a seris of [**stages**](#stagelink).  These stages involve preparation, high temperature dynamics, simulated annealing and low temperature dynamics.  The stages are predefined in code and have specific values for [Parameters](#parameterlink) and [Forces](#forcelink).  The user can adjust any of the parameters in a stage or introduce new stages by adding sections to the [yaml](#yamllink) file.
 
+Structure calculations are typically constrained by experimental data.  NMRFx supports a variety of formats for importing these restraints.  See the [Data](#datalink) Section for more details.
 
+Running a structure calculation will generate output as the structure calculation proceeds.  This output will be written to standard output and an example is shown [here](#genoutputlink).
 
 __Examples__: 
 
@@ -88,6 +90,8 @@ __Examples__:
 
 **-n** *NEFoutFile*
 :  Name of nef file to write.
+
+
 
 ### <a id="batchlink">batch</a>
 
@@ -217,9 +221,15 @@ The output for small molecules is a simple table of atom name and chemical shift
 
 __Examples__:
 
-* `nmrfxs predict protein.pdb`
+```
+nmrfxs predict protein.pdb
 
-* `nmrfxs predict project.yaml`
+nmrfxs predict -o protein protein.pdb
+
+nmrfxs predict -o star -r attr  rna.pdb
+
+nmrfxs predict project.yaml
+```
 
 ### <a id="scorelink">score</a>
 
@@ -413,7 +423,105 @@ anneal:
         tors : 0.1
         irp : -0.2
 ```
-### Annealing Options (DynOptions)
+
+###<a id="datalink">Data</a>
+
+Data files can be read in several formats.  
+
+**NEF**
+
+First, molecular structure and constraints can be read together from an NMR Exchange Format (NEF) file. [NEF](https://www.nature.com/articles/nsmb.3041) files are a relatively recent format for storing NMR restraints.  They are based on the STAR format that is used by both NMR-STAR (from the BMRB) and MMcif files.  NMRFx can read NEF files to import the molecular sequence and distance, angle and RDC constraints.  Indeed, one can generate a structure using default parameters by simply typing **nmrfxs gen file.nef** where **file.nef** is the name of the NEF file.  If a nef file is used then it can be referenced in the .yaml file like:
+
+```
+nef : file.nef
+```
+
+**Molecular Topology**
+
+If you are not using NEF files, then you can read the molecular sequence and restraints from text files in a variety of formats.  The molecular sequence can be read from a file in NMRViewJ (similar to CYANA) format.  This is a file consisting of the three-letter amino acid code (one letter for RNA, and two letter for DNA).  Each residue is on a single line of the file and can optionally be followed by an integer number representing the residue number. For example, a sequence starting with Methionine with sequential number 1 would look like:
+
+```
+MET     1
+GLN 
+ILE
+PHE4
+VAL5
+...
+```
+
+If the sequence starts at 1 the integer residue position is optional.  Any (or all) residue can have a sequential number next to it and gaps can be present in the numbering.
+
+This file would be reference in the **molecule** section of the .yaml file:
+```
+molecule :
+     file : input/1d3z.seq
+     chain : A
+     type : nv
+
+```
+
+Alternatively the sequence can be explicitly listed as a single letter code in the .yaml file with a section like:
+
+```
+molecule :
+  entities :
+      - sequence : GGCUCUGGUGAGAGCCAGAGCC
+        indexing : '1:2 125:135 217:225'
+        ptype : RNA
+```
+
+
+In the above example the indexing field is used to specify the residue numbering.  In this example the first residue would be 1, the second 2, the third 125.  Further residues would be 126, 127 etc. up to position 135.  Then the numbering continues with  217, 218 etc. through the last residue, 225.
+
+**Restraints**
+
+Restraints, as mentioned above, can be included in a NEF file along with the molecular topology.  Alternatively they can be specified in several other formats. Currently supported are CYANA, XPLOR and an NMRFx format.  Note: no attempt has been made to ensure comprehensive and fully accurate support of CYANA and XPLOR formats.  They are provided as a convenience to the user and for our own testing.  Our suite of test structures does, however, have a variety of examples of CYANA and XPLOR (and NEF) formats and all the examples run properly.
+
+Here is the restraint section of a .yaml file (from our test suite)  with CYANA restraints for ubiquitin. Note that CYANA distance restraints are normally in pairs with one for upper bounds (.upl) and one for lower bounds (.lol).  The .yaml file need only mention the root name.  So this example will load both distances.upl and distance.lol.
+
+```
+distances :
+    - file : input/distances
+      type : cyana
+
+angles :
+    - file : input/dihedrals.aco
+      type : cyana
+
+```
+
+And the corresponding example with XPLOR restraints.
+
+```
+angles :
+    - file : input/dih.tbl
+      type : xplor
+
+distances :
+    -
+      file : input/dis.tbl
+      type : xplor
+    -
+      file : input/hydcon.tbl
+      type : xplor
+
+```
+
+The NMRFx format has tab-separated lines with fields:
+
+id, group, atom1Specifier, atom2Specifier, lower, upper
+
+```
+
+0       0       1:64.H  1:64.H  1.8     2.8 
+1       0       1:7.H   1:64.H  1.8     2.8
+2       2       1:63.H  1:64.H  1.8     5.2
+3       3       1:58.HA 1:64.H  1.8     4.3
+4       3       1:64.HA 1:64.H  1.8     4.3
+```
+
+
+###<a id="anneallink">Annealing Options</a>
 
 There are a variety of parameters that effect the protocol used for simulated annealing in structure generation.  The most likely ones that a user might want to change from the default value are **steps**, **highTemp** and **cffSteps**.  Most other parameters can be left at their default values. 
 
@@ -507,9 +615,9 @@ useh
 :  If true, include hydrogens in non-bond contacts.
 
 
-### <a id="forcetermslink">Force Terms</a>
+### <a id="forcelink">Force Terms</a>
 
-The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink).  Generally, if a force term has a value < 0.0, then that componnet will not be included.
+The force terms apply during the calculation of energy values and gradients of the energy during commands such as [gen](#genlink).  Generally, if a force term has a value < 0.0, then that component will not be included.
 
 bondWt
 :  The weight for distance restraints that involve bonds (for example, to close ribose rings).
@@ -702,4 +810,315 @@ anneal:
         force : 
             repel : 2.0
         nStepVal : 100
+
+```
+
+
+### <a id="genoutputlink">Structure Calculation (gen subcommand) Output</a>
+
+A structure calculation with the [gen](#genlink) subcommand generate several forms of output.  During structure calculation 
+information is written to standard output and is described below.  At the completion of structure calculation 
+three files are written into a folder named **output** (which is created if it doesn't already exist).  These three files
+are tempN.pdb (PDB file of the generated structure), tempN.ang (dihedral angles of rotatable bonds in generated structure),
+and tempN.txt (angle and distance violations and close non-bond contacts).  The **N** in these file names is the seed number used
+(specified with -s flag to the gen subcommand).
+
+As described above the structure calculation proceeds through a series of stages.  Each stage is characterized by a different set of
+Forces and Parameters and at the start of each stage the [Forces](#forcelink) and 
+[Parameters](#parameterlink) are reported.  Each stage can involve both gradient minimization (typically at start of the stage) and
+rotational dynamics. The status of each of these protocols is periodically reported.  Lines starting with **GMIN** are reported 
+during gradient minimization and the output includes the current number of iterations, the number of non-bond contacts and the energy. 
+
+**Note: at present, numbers for physics based parameters (time, kinetic energy, potential energy etc.) are not calibrated in a way that
+they are physically meaningful.**
+
+Lines starting with RDYN are reported during rotational dynamics.
+
+step
+:  The number of rotational dynamics steps that have been performed when the report is done
+
+time
+:  The simulation time at this point. 
+
+temp
+:  Temperature calculated based on the kinetic energy (again, not currently
+
+kinE
+: Kinetic energy
+
+potE
+: Potential energy
+
+totE
+: sum of the kinetic and potential energy
+
+deltaE
+: fractional energy change averaged over steps since last report line.
+
+timeStep
+: The average time step since last report line.
+
+rmsAngle
+: Root mean square of the rotatable angles since last report line.
+
+maxAngle
+: Maximum angle change (degrees) in since last report line
+
+contacts
+: number of non-bond contacts (within specified distance range)
+
+Here is the output of the calculation of the structure of ubiquitin using data in the [Example](https://nmrfx.org/downloads/structure) files.
+
+    nmrfxs gen project.yaml
+	
+```
+mass 8564.8
+FORCES cffnb -1.00 nbmin  0.50 repel  0.50 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt  1.00 stack -1.00
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt   5 deltaStart    0 deltaEnd    2 disLim  4.60
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt   5 deltaStart    0 deltaEnd    3 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0     2969   1251.01
+GMIN       20     2389      2.77
+GMIN       40     2421     -1.38
+GMIN       60     2427     -1.73
+GMIN       80     2431     -1.89
+GMIN       84     2431     -1.90
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt   5 deltaStart    0 deltaEnd   10 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0     3016   8600.56
+GMIN       20     4307    207.02
+GMIN       40     4049    123.20
+GMIN       60     4019     99.19
+GMIN       80     4004     91.30
+GMIN      100     3971     88.14
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt   5 deltaStart    0 deltaEnd   20 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0     6137   1231.51
+GMIN       20     5264    169.32
+GMIN       40     4870    135.81
+GMIN       60     4760    124.97
+GMIN       61     4760    124.97
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt   5 deltaStart    0 deltaEnd 1000 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0    10386  10989.17
+GMIN       20     7221   1160.59
+GMIN       40     7026    749.82
+GMIN       60     6895    628.65
+GMIN       80     6795    600.66
+GMIN      100     6279    439.39
+FORCES cffnb -1.00 nbmin  0.50 repel  0.50 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt  1.00 stack -1.00
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt  20 deltaStart    0 deltaEnd 1000 disLim  4.60
+init vel 5000.0 4999.999999999999
+RDYN   step       time     temp     kinE     potE     totE     deltaE   timeStep rmsAngle maxAngle contacts
+RDYN      0      0.000   4986.2    252.5    439.5    692.0   0.000000   0.000000    0.000    0.000     6290
+RDYN    224   2908.659   4617.3    234.9    769.4   1004.3   0.007462  12.927374    1.703    6.469     5166
+RDYN    449   4631.695   7885.3    387.3    433.9    821.2   0.004899   7.657937    1.221    4.583     4997
+RDYN    674   7584.691   5314.4    263.9    610.0    873.9   0.006667  13.124428    2.034    6.996     6250
+RDYN    899   9689.840   5171.8    278.5    503.7    782.1   0.005389   9.356217    1.544    5.482     5228
+RDYN   1124  12177.481   5901.5    302.4    346.8    649.2   0.006183  11.056183    1.566    6.078     5229
+RDYN   1349  15027.873   5291.9    269.0    673.5    942.5   0.007878  12.668408    2.154    7.802     6700
+RDYN   1574  17785.140   5631.4    286.4    607.1    893.5   0.006683  12.254521    2.168    7.857     6442
+RDYN   1799  20323.263   4740.6    242.2    503.8    746.0   0.007725  11.280546    2.020    7.575     5136
+RDYN   2024  23152.798   5097.2    253.1    557.1    810.2   0.007492  12.575710    2.095    7.073     6087
+RDYN   2249  25853.093   5964.4    291.0    524.9    816.0   0.006162  12.001310    1.808    6.832     5592
+RDYN   2474  28249.377   5276.5    265.6    561.9    827.6   0.007235  10.650153    1.589    5.855     5132
+RDYN   2699  30337.993   5189.4    266.9    516.1    783.0   0.005513   9.282740    1.613    6.068     5863
+RDYN   2924  32649.062   5374.3    270.6    494.4    765.0   0.006198  10.271414    1.649    6.032     5211
+RDYN   3149  35189.062   5252.3    264.4    715.4    979.7   0.006647  11.288890    1.923    6.707     7363
+RDYN   3374  37311.469   5133.4    259.2    461.2    720.4   0.005736   9.432919    1.555    5.782     5604
+RDYN   3599  40526.564   4426.2    229.6    614.7    844.3   0.006740  14.289312    2.052    7.699     6228
+RDYN   3824  43259.732   5093.1    258.6    281.9    540.5   0.007406  12.147413    1.937    6.500     4765
+RDYN   4049  45250.724   4978.3    254.1    462.0    716.1   0.005086   8.848856    1.341    5.192     5471
+RDYN   4274  47776.677   5118.0    258.5    343.0    601.5   0.007157  11.226456    1.829    7.234     5278
+RDYN   4499  50491.574   5133.2    259.5    592.3    851.8   0.005579  12.066210    1.942    6.799     4907
+FORCES cffnb -1.00 nbmin  0.50 repel  0.50 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt  1.00 stack -1.00
+PARS   coarse False includeH False hard  0.15 shrinkValue  0.20 shrinkHValue  0.00 updateAt  20 deltaStart    0 deltaEnd 1000 disLim  4.60
+RDYN   step       time     temp     kinE     potE     totE     deltaE   timeStep rmsAngle maxAngle contacts
+RDYN      0  50491.574   5124.5    259.5    616.5    876.0   0.000000   0.000000    0.000    0.000     4912
+RDYN    259  53241.191   4334.8    246.0    324.2    570.3   0.004950  10.575451    1.603    6.059     4592
+RDYN    519  56691.129   3451.4    171.6    290.5    462.1   0.006564  13.268990    1.533    5.702     4853
+RDYN    779  60552.463   2801.3    146.2    227.0    373.2   0.005992  14.851288    1.645    6.401     4861
+RDYN   1039  63514.610   2247.4    110.6    250.1    360.7   0.006071  11.392872    1.294    4.683     4282
+RDYN   1299  66603.363   1695.2     86.6    142.7    229.4   0.005608  11.879820    1.309    4.413     4747
+RDYN   1559  69369.128   1385.9     69.5    178.7    248.3   0.005656  10.637557    1.121    3.736     4580
+RDYN   1819  72710.496   1051.3     53.5    139.0    192.5   0.005747  12.851416    1.218    4.157     4561
+RDYN   2079  75827.206    863.8     43.4    102.4    145.8   0.005732  11.987345    0.974    3.361     4599
+RDYN   2339  79647.275    708.6     35.5     79.4    115.0   0.005905  14.692575    1.142    4.083     4776
+RDYN   2599  83460.276    560.5     28.2     64.0     92.3   0.006189  14.665387    0.997    3.604     4399
+RDYN   2859  86517.756    446.1     22.6     47.8     70.4   0.005459  11.759540    0.783    3.043     4334
+RDYN   3119  89579.102    385.3     19.6     38.4     58.0   0.006560  11.774405    0.723    2.816     4135
+RDYN   3379  92890.222    325.5     16.4     29.2     45.6   0.005777  12.735077    0.703    2.919     4004
+RDYN   3639  96200.934    295.9     15.0     39.7     54.6   0.005741  12.733508    0.682    2.548     4346
+RDYN   3899  99842.233    262.4     13.3     30.8     44.1   0.005823  14.004999    0.688    2.460     4166
+RDYN   4159 103709.173    255.5     12.9     29.8     42.7   0.005980  14.872846    0.727    2.701     4103
+RDYN   4419 107622.884    239.1     12.0     35.4     47.4   0.006024  15.052734    0.722    3.119     4175
+RDYN   4679 112043.490    242.1     12.2     28.2     40.4   0.006578  17.002332    0.798    3.921     4170
+RDYN   4939 115432.651    256.8     13.1     20.1     33.2   0.005417  13.035234    0.592    2.137     4075
+RDYN   5199 119050.572    255.9     13.0     25.0     38.0   0.005758  13.915081    0.631    2.397     4167
+FORCES cffnb -1.00 nbmin  0.50 repel  0.50 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt  1.00 stack -1.00
+PARS   coarse False includeH False hard  0.00 shrinkValue  0.00 shrinkHValue  0.00 updateAt  20 deltaStart    0 deltaEnd 1000 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0     4162     33.91
+GMIN       20     3980     24.42
+GMIN       33     3990     23.16
+RDYN   step       time     temp     kinE     potE     totE     deltaE   timeStep rmsAngle maxAngle contacts
+RDYN      0 119050.572    279.5     14.2     23.2     37.3   0.000000   0.000000    0.000    0.000     3991
+RDYN    259 122208.906    200.1     10.2     31.8     42.0   0.005305  12.147438    0.524    1.911     3791
+RDYN    519 125184.520    169.2      8.5     21.8     30.4   0.005121  11.444668    0.447    1.725     3820
+RDYN    779 129409.778    132.9      6.7     15.3     22.1   0.005447  16.250994    0.593    2.078     3813
+RDYN   1039 134108.677    107.6      5.4     15.1     20.6   0.005017  18.072686    0.577    2.035     3698
+RDYN   1299 137968.677     80.7      4.1     12.9     17.0   0.005156  14.846157    0.419    1.588     3953
+RDYN   1559 141240.646     62.8      3.2      8.9     12.1   0.004901  12.584495    0.318    1.343     3904
+RDYN   1819 144177.171     46.5      2.4      3.1      5.4   0.005045  11.294328    0.250    0.842     3658
+RDYN   2079 146403.431     34.5      1.7      1.6      3.3   0.004372   8.562537    0.172    0.642     3598
+RDYN   2339 147651.564     24.1      1.2      1.0      2.2   0.004752   4.800511    0.084    0.314     3694
+RDYN   2599 148096.764     16.8      0.8     -0.3      0.6   0.003911   1.712310    0.025    0.089     3601
+RDYN   2859 148274.094     11.3      0.6     -0.5      0.0   0.004147   0.682038    0.008    0.032     3574
+RDYN   3119 148312.818      7.5      0.4     -0.6     -0.2   0.004897   0.148939    0.001    0.004     3572
+RDYN   3379 148424.632      4.8      0.2     -1.0     -0.7   0.003090   0.430052    0.003    0.009     3564
+FORCES cffnb -1.00 nbmin  0.50 repel  1.00 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt 25.00 stack -1.00
+PARS   coarse False includeH  True hard  0.00 shrinkValue  0.00 shrinkHValue  0.00 updateAt  20 deltaStart    0 deltaEnd 1000 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0    17782     26.39
+GMIN       20    16816     12.42
+GMIN       40    16783     10.20
+GMIN       60    16801      9.34
+RDYN   step       time     temp     kinE     potE     totE     deltaE   timeStep rmsAngle maxAngle contacts
+RDYN   3380 148424.632      7.8      0.4      9.3      9.7   0.000000   0.000000    0.000    0.000    16801
+RDYN   3639 148734.054      3.3      0.2      4.3      4.4   0.002944   1.190086    0.008    0.046    16787
+RDYN   3899 149036.606      2.1      0.1      1.9      2.0   0.003025   1.163663    0.007    0.051    16804
+RDYN   4159 149336.382      1.5      0.1      0.8      0.9   0.002954   1.152981    0.005    0.032    16782
+RDYN   4419 149547.240      1.2      0.1      0.3      0.4   0.002939   0.810992    0.003    0.015    16782
+RDYN   4679 149664.833      1.0      0.1      0.1      0.2   0.002869   0.452281    0.002    0.008    16787
+RDYN   4939 149724.268      1.0      0.1      0.0      0.1   0.002786   0.228596    0.001    0.004    16786
+RDYN   5199 149753.403      1.0      0.1     -0.0      0.0   0.002690   0.112061    0.000    0.002    16794
+FORCES cffnb -1.00 nbmin  0.50 repel  2.00 elec -1.00 dis  1.00 dprob -1.00 dih  5.00 irp  0.05 shift -1.00 bondWt 25.00 stack -1.00
+PARS   coarse False includeH  True hard  0.00 shrinkValue  0.00 shrinkHValue  0.00 updateAt  20 deltaStart    0 deltaEnd 1000 disLim  4.60
+GMIN     iter contacts    energy
+GMIN        0    16794      4.18
+GMIN       20    16683      3.71
+GMIN       40    16698      3.47
+GMIN       50    16691      3.46
+RDYN   step       time     temp     kinE     potE     totE     deltaE   timeStep rmsAngle maxAngle contacts
+RDYN      0 149753.403      1.0      0.1      3.5      3.5   0.000000   0.000000    0.000    0.000    16691
+RDYN      4 149753.612      0.0      0.0      3.5      3.5   0.000001   0.041694    0.000    0.000    16691
+RDYN      9 149753.848      0.0      0.0      3.5      3.5   0.000000   0.047173    0.000    0.000    16691
+RDYN     14 149754.115      0.0      0.0      3.5      3.5   0.000000   0.053371    0.000    0.000    16691
+RDYN     19 149754.358      0.0      0.0      2.8      2.8   0.050457   0.048579    0.000    0.000    16691
+RDYN     24 149754.674      0.0      0.0      2.8      2.8   0.000000   0.063247    0.000    0.000    16691
+RDYN     29 149755.032      0.0      0.0      2.8      2.8   0.000000   0.071558    0.000    0.000    16691
+RDYN     34 149755.436      0.0      0.0      2.8      2.8   0.000000   0.080962    0.000    0.000    16691
+RDYN     39 149755.894      0.0      0.0      2.8      2.8   0.000000   0.091601    0.000    0.000    16691
+RDYN     44 149756.413      0.0      0.0      2.8      2.8   0.000000   0.103638    0.000    0.000    16691
+RDYN     49 149756.999      0.0      0.0      2.8      2.8   0.000000   0.117257    0.000    0.000    16691
+RDYN     54 149757.662      0.0      0.0      2.8      2.8   0.000000   0.132665    0.000    0.000    16691
+RDYN     59 149758.413      0.0      0.0      2.8      2.8   0.000000   0.150098    0.000    0.000    16691
+RDYN     64 149759.262      0.0      0.0      2.8      2.8   0.000000   0.169823    0.000    0.000    16691
+RDYN     69 149760.223      0.0      0.0      2.8      2.8   0.000000   0.192139    0.000    0.000    16691
+RDYN     74 149761.309      0.0      0.0      2.8      2.8   0.000001   0.217387    0.000    0.000    16691
+RDYN     79 149762.539      0.0      0.0      2.8      2.8   0.000000   0.245954    0.000    0.000    16691
+RDYN     84 149763.931      0.0      0.0      2.8      2.8   0.000001   0.278274    0.000    0.000    16691
+RDYN     89 149765.505      0.0      0.0      2.8      2.8   0.000001   0.314841    0.000    0.000    16691
+RDYN     94 149767.286      0.0      0.0      2.8      2.8   0.000000   0.356214    0.000    0.000    16691
+RDYN     99 149769.301      0.0      0.0      2.8      2.8   0.000000   0.403024    0.000    0.000    16691
+GMIN     iter contacts    energy
+GMIN        0    16691      2.76
+GMIN        6    16675      2.70
+NNOE 7064 nRepel 16698
+energy is 2.69516703654
+etime  37.4120001793
+
+```
+
+### <a id="genoutputlink">Multiple Structure Calculation (batch subcommand) Output</a>
+
+Generation of multiple structures with the [**batch**](#batchlink) subcommand results in 
+muliple simultaneous instances of the [**gen**](#genlink) subcommand running.  The output of each of these
+is redirected into files named cmdout_N.txt (where N is the seed number) in the **output** subdirectory.
+
+Standard output of the **batch** command itself will be information about the progress of each calculation.
+
+Lines like this indicate that a new NMRFx Structure process with the **gen** subcommand has been started and
+indicates the seed used, which of the requested number of structures this job represents, and the 
+process identifier (pid) for the job.
+
+    submit 0 seed:   0 Structure #   1 of  50 pid    1509
+
+The number after submit indicates which of the reserved number of processes is being used for that job.
+
+The batch process monitors spawned processes and when each one is completed it will print a **Finish** line:
+
+    Finish 1 seed:   1 Finished      1 of  50 pid    1511 eTime   56.2
+
+The batch process monitors each spawned processes elapsed time.  If a process takes more than three times
+the average time of the jobs that have already finished then that job is killed.  A new process
+(with new seed number) will be submitted.
+
+and then (if all structures have not been completed) submit a new job.
+
+Here's part of the output for generation of 50 structures:
+
+```
+nmrfxs batch -n 50 -k 10 -p 5 -a -c project.yaml 
+
+submit 0 seed:   0 Structure #   1 of  50 pid    1509
+submit 1 seed:   1 Structure #   2 of  50 pid    1511
+submit 2 seed:   2 Structure #   3 of  50 pid    1515
+submit 3 seed:   3 Structure #   4 of  50 pid    1518
+submit 4 seed:   4 Structure #   5 of  50 pid    1523
+Finish 1 seed:   1 Finished      1 of  50 pid    1511 eTime   56.2
+Finish 2 seed:   2 Finished      2 of  50 pid    1515 eTime   56.2
+submit 1 seed:   5 Structure #   6 of  50 pid    1568
+submit 2 seed:   6 Structure #   7 of  50 pid    1569
+Finish 0 seed:   0 Finished      3 of  50 pid    1509 eTime   57.2
+Finish 3 seed:   3 Finished      4 of  50 pid    1518 eTime   57.2
+Finish 4 seed:   4 Finished      5 of  50 pid    1523 eTime   57.2
+submit 0 seed:   7 Structure #   8 of  50 pid    1580
+submit 3 seed:   8 Structure #   9 of  50 pid    1581
+submit 4 seed:   9 Structure #  10 of  50 pid    1584
+...
+submit 0 seed:  47 Structure #  48 of  50 pid    2005
+submit 4 seed:  48 Structure #  49 of  50 pid    2006
+Finish 2 seed:  44 Finished     45 of  50 pid    1965 eTime   57.1
+submit 2 seed:  49 Structure #  50 of  50 pid    2020
+Finish 3 seed:  45 Finished     46 of  50 pid    1991 eTime   57.1
+Finish 1 seed:  46 Finished     47 of  50 pid    1999 eTime   55.1
+Finish 0 seed:  47 Finished     48 of  50 pid    2005 eTime   55.1
+Finish 2 seed:  49 Finished     49 of  50 pid    2020 eTime   55.1
+Finish 4 seed:  48 Finished     50 of  50 pid    2006 eTime   56.1
+Done
+  * ca,c,n,o,p,o5',c5',c4',c3',o3'
+repModel 6 rms 0.971581149907 avgrms 1.13736317587
+coreResidues [u'A:2-7', u'A:9-72']
+coreResidues [u'A:2-7', u'A:11-71']
+coreResidues [u'A:2-6', u'A:11-71']
+coreResidues [u'A:2-6', u'A:11-71']
+coreResidues [u'A:2-6', u'A:11-71']
+repModel 3 rms 0.464075104455 avgrms 0.509412597497
+```
+
+When all requested structures are finished the output for each structure calculation will be analyzed
+and the N (where N is set with the -k flag) best structures will be kept.  The best structures
+(and their corresponding angle and violation files) will be copied from output to the final directory.
+They will be given extensions starting with 1, for the best structure (final1.pdb, final1.ang, final1.txt).
+The [super](#superlink) subcommand will be used to generate
+an MMCif file with all the superimposed structures or a set of pdb files (sup_final1.pdb etc).
+The choice of MMcif (default) or PDB file is set by the **-t** flag to the **batch** command.
+
+A summary of the violation files (final1.txt, final2.txt etc.) will be
+written to  final/summary.txt.  Each line of the summary corresponds to one final structure.
+The value in the first column is the index of the file (1 for final1.pdb etc.).  The second 
+column (34, 36, 15 etc. in example below) is the seed used to generate that structure.
+
+```
+1   34  Irp   307   -4.380 Dih    97    0.208 CFF     0    0.000 Repel 16565    4.692 Distance  7064    1.356    0.450 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    1.875
+2   36  Irp   307   -4.122 Dih    97    0.343 CFF     0    0.000 Repel 17172    4.596 Distance  7064    1.323   -0.328 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.139
+3   15  Irp   307   -4.502 Dih    97    0.246 CFF     0    0.000 Repel 17070    4.668 Distance  7064    1.799   -0.470 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.210
+4   37  Irp   307   -4.349 Dih    97    0.323 CFF     0    0.000 Repel 17097    4.387 Distance  7064    1.860    0.455 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.221
+5   10  Irp   307   -4.349 Dih    97    0.115 CFF     0    0.000 Repel 17043    4.500 Distance  7064    1.979    0.455 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.244
+6   12  Irp   307   -4.430 Dih    97    0.250 CFF     0    0.000 Repel 17171    4.495 Distance  7064    1.951    0.350 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.266
+7   21  Irp   307   -4.331 Dih    97    0.113 CFF     0    0.000 Repel 16955    4.895 Distance  7064    1.597    0.452 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.274
+8   38  Irp   307   -4.534 Dih    97    0.275 CFF     0    0.000 Repel 17102    4.727 Distance  7064    1.891   -0.441 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.359
+9   41  Irp   307   -4.566 Dih    97    0.128 CFF     0    0.000 Repel 17386    4.865 Distance  7064    1.932    0.439 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.360
+10  35  Irp   307   -4.363 Dih    97    0.138 CFF     0    0.000 Repel 17419    4.774 Distance  7064    1.872    0.515 Shift     0    0.000 ProbT     0    0.000 Stack     0    0.000 Total    2.421
 ```
