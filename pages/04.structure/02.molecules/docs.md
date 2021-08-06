@@ -3,6 +3,96 @@ title: Molecular Topology
 taxonomy:
     category: docs
 ---
+
+
+The molecular structure is specified in NMRFx using a sequence file.  Here are examples.  Note: when doing structure calculations more 
+complex structures may be specified in the projects .yaml file.  See the project file documentation.
+
+
+## Sequence Files
+
+Simple sequence
+
+    met
+    ala
+    asn
+    glu
+    lys
+
+
+Sequence starts at "5"
+
+    met 5
+    ala
+    asn
+    glu
+    lys
+
+
+Sequence with breaks in numbering
+
+    met 5
+    ala
+    asn 8
+    glu
+    lys
+    thr
+    his 15
+    arg
+    thr
+
+RNA sequence
+
+    a
+    u
+    c
+    g
+
+DNA sequence
+
+    da
+    dt
+    dc
+    dg
+
+Sequence with entity names
+
+    -molecule fred
+    -polymer chainA
+    -coordset mono1
+    met 5
+    ala
+    asn
+    glu
+    lys
+
+Heterodimer
+
+    -molecule mymol
+    -polymer poly1
+    -coordset A
+    met
+    ala
+    asn
+    glu
+    -polymer poly2
+    -coordset A
+    val
+    asp
+    arg
+
+Polymer with ATP ligand
+
+    -molecule atpBinding
+    -polymer chainA
+    -coordset A
+    -sdfile atp.sdf
+    met
+    ala
+    asn
+    glu
+    lys
+
 ## Template Library
 
 When generating a molecular structure in NMRFx by reading in a
@@ -27,6 +117,23 @@ a "reslib" entry.  For example:
 If a local residue library is not specified, or the file is not found
 there, then the built-in residue library is searched.
 
+Two special aspects of residue names can be used in the sequence file.
+First, residue names that are followed with ":d" are automatically 
+changed to D-amino acids. For example, in the following:
+
+    gly
+    ser
+    ala:d
+    trp
+
+The alanine residue will be D-alanine
+
+Second, entries that have an underscore character will internally
+have the name set with the portion before the underscore character,
+but will be set from the .prf file with the full name.  
+For example, "glu_prot", will be read from the file ***glu_prot.prf*** (which specifies the
+protonated form of glutamic acid),
+but will have the name "glu".
 
 ### PRF Files
 
