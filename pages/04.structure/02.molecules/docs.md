@@ -301,10 +301,10 @@ how to make connections to the preceding and succeeding residues.
 The sequence file should contain -entry and -exit lines
 before the residue name.  For example,
 
-   leu
-   -entry C1
-   -exit C8
-   phq
+    leu
+    -entry C1
+    -exit C8
+    phq
 
 These lines specify the names of atoms in the residue that are used to make the
  connection to the adjacent residues.
