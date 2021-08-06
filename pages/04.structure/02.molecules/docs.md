@@ -9,14 +9,26 @@ When generating a molecular structure in NMRFx by reading in a
 sequence file it is necessary to translate the residue names into the
 set of atoms and bonds that define the molecular topology. To do this,
 NMRFx, looks at each residue name in the sequence file, and checks to
-see if a file corresponding to that name with a ".prf" extension exists
-in the residue library. If an appropriate residue file is not found in
-the standard directory (specified with the reslib entry in Preferences),
-then NMRFx can also look in a local residue library directory
-(specified with the local,reslib entry in Preferences). This is the
-appropriate place to place your own special .prf files. This way they
-won't be accidentally deleted when you upgrade to a new version of
-NMRFx.
+see if a file corresponding to that name with a ".prf" extension can be located.
+
+NMRFx looks in two places for these files.  First, if a local residue library
+directory has been set, it looks there.  Local residue libraries are specified
+in the NMRFx Analyst GUI in the Preferences dialog (Structure section). In 
+NMRFx Structure the location is specied in the project .yaml file as 
+a "reslib" entry.  For example:
+
+    molecule :
+      reslib  :  reslib
+    
+      entities :
+          - file : input/A.seq
+            ptype : protein
+
+If a local residue library is not specified, or the file is not found
+there, then the built-in residue library is searched.
+
+
+### PRF Files
 
 If a residue file is found, that file is scanned to extract the topology
 for that residue. NMRFx works with residues using an internal
@@ -173,4 +185,21 @@ program, PEGASUS (Johnson & Sugg, Biochem., 1992, 31,8151-8159).
     would encompass all atoms of the residue. Used for accelerating
     calculation of non-bond contact list. Unused at present in NMRFx.
 
+### PDB or Mol Files
+
+Residue files can also be specified with .pdb or .mol files if they
+are located in local residue libraries. Residue files stored
+as .pdb or .mol files do not have information, as the .prf files do, on
+how to make connections to the preceding and succeeding residues.
+The sequence file should contain -entry and -exit lines
+before the residue name.  For example,
+   leu
+   -entry C1
+   -exit C8
+   phq
+
+These lines specify the names of atoms in the residue that are used to make the
+ connection to the adjacent residues.
+**Note**: this is an experimental feature, and may be subject to changes and require bug fixes.
+Please contact us for more information.
 
