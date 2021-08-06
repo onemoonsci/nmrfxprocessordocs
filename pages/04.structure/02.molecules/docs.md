@@ -104,7 +104,7 @@ see if a file corresponding to that name with a ".prf" extension can be located.
 NMRFx looks in two places for these files.  First, if a local residue library
 directory has been set, it looks there.  Local residue libraries are specified
 in the NMRFx Analyst GUI in the Preferences dialog (Structure section). In 
-NMRFx Structure the location is specied in the project .yaml file as 
+NMRFx Structure the location is specified in the project .yaml file as 
 a "reslib" entry.  For example:
 
     molecule :
@@ -300,6 +300,7 @@ as .pdb or .mol files do not have information, as the .prf files do, on
 how to make connections to the preceding and succeeding residues.
 The sequence file should contain -entry and -exit lines
 before the residue name.  For example,
+
    leu
    -entry C1
    -exit C8
