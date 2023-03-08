@@ -59,8 +59,12 @@ Read Chemical Shift Files
         assignments. The file should be in the format written by NMRVIEW
         and will look like:
 
-             1.CA 54.938 1 1.HA 4.207 1 1.CB 33.248 1 1.HB2
-                                                    2.082 2 1.CG 30.933 1 1.HG2 1.956 2 
+             1.CA 54.938 1 
+             1.HA 4.207 1 
+             1.CB 33.248 1 
+             1.HB2 2.082 2 
+             1.CG 30.933 1 
+             1.HG2 1.956 2 
 
         The fields are atom specifier (residue.atom), chemical shift,
         and stereospecificity code. When you select this menu entry a
