@@ -8,4 +8,4 @@ taxonomy:
 
 # Basics
 
-An overview of NMRFx Processor
+An overview of NMRFx Analyst

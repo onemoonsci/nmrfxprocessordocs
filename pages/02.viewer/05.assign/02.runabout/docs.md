@@ -128,7 +128,7 @@ each of these peak lists:
 
 Consider the hnca and hncacb lists as examples. RunAbout expects the
 hnca to exhibit peaks with 1H and 15N chemical shifts from the amide of
-residue i, and two 13Cα resonances, one from residue i-1 and one from
+residue i, and two 13Ca resonances, one from residue i-1 and one from
 residue i. The pattern for the hncacb experiment indicates extra
 information specifying that negative peaks should be interpreted as
 corresponding to beta carbons.
