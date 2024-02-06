@@ -1,8 +1,8 @@
 ---
-title: NMRFx Processor 
+title: NMRFx Analyst 
 ---
 
-### Processor
+### Analyst
 
 
 ### [Viewer](/viewer)
