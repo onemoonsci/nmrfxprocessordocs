@@ -75,3 +75,7 @@ Once you have the spectrum phased at the pivot, look to see if it is uniform acr
 After phasing turn the baseline correction back on if needed.
 
 ![](images/bc1d.png)
+
+Once you've processed the dataset you can close up the ***Processor*** tab.
+
+![](images/noproc.png)
