@@ -10,16 +10,12 @@ taxonomy:
 
 Datasets
 
-:  Click this icon to get a pop-window listing all open datasets.  You can then
-click on an entry and drag it into a spectrum window to display it.
+:  Click this icon to get a window with the Dataset Browser which allows scanning folders for NMR datasets and presenting a table of all the datasets that are found. You can select a dataset from the table and open it.
 
-Open
+Favorite
 
-:    Display a file dialog in which you can select the NMR data set to open. Typically you will select an Agilent ".fid" directory, an Agilent "fid" file, or a Bruker "fid" or "ser" file. The file will be opened and the first row of raw data displayed.
+:    Save the current view into a favorites file (in the windows folder of a project). This only works if you have an NMRFx project active.  Saved favorites can be opened from the Spectra->Favorites menu.
 
-Attributes
-
-:    Display the attributes panel for controlling how your spectrum is displayed. The attributes panel in NMRFx is designed to work much like that in NMRViewJ (though the code is completely different). 
 
 Refresh
 
@@ -31,8 +27,8 @@ Halt
 
 Undo
 
-:  Undo the last change in spectral view (display region and levels).  Multiple
-undo actions are stored in a history so they can be redone.
+:  Undo the last change in spectral view (display region and levels) or peak actions.  Multiple
+undo actions are stored in a history so they can be redone.  Peak actions include interactive moves of peaks and other actions done through the cursor or spectrum pop-up menu.
 
 Redo
 
@@ -66,16 +62,4 @@ Lower
 
 :    Adjust vertical scale (or contour level for 2D) so peaks appear lower.  When the mouse pointer is over this icon you can use the scroll wheel (or scroll gesture on trackpad) to raise or lower the scale (Scroll control works the same on both the Higher and Lower icons).
 
-Pick
-
-:    Peak pick the spectrum.  The region picked is the currently displayed window or the region contained between the crosshairs (if they are present).  The threshold level used for picking 2D and higher dimension datasets will be the current contour level.  The threshold for 1D datasets will be the position of the black, horizontal crosshair.  Picked peaks will be displayed and the peak information immediately saved in a text file in the NMRViewJ .xpk format in a file in the directory containing the dataset.  If the spectrum already has a peaklist then the new peaks will add or replace existing peaks depending on whether peaks are present in the pick region.  If peaks are present, the current list will be cleared and replaced with the new peaks.  If no existing peaks are present in the region, then the new peaks will be appended on to the list of existing peaks.  Peaks can be selected, moved and resized with the cursor in Selection mode.
-
-NvJ
-
-:    NMRFx can display contour files of the processed spectra, but it does not have has many display controls as NMRViewJ.  Selecting this menu option will tell your operating system to open the dataset. Installations of NMRViewJ normally configure the program as the preferred renderer for NMRViewJ datasets so it should open and display the dataset. Versions of NMRViewJ before 9.1 would not open an already open dataset. Starting with 9.1 you will be prompted to reopen the dataset, so version 9.1 is the preferred renderer to use in combination with NMRFx.
-
-Chart
-
-:  The chart icon can be dragged onto the existing window to add a new chart into the current window.  As soon as you click and start dragging the item rectangles will appear on the sides of the current window.  Drag and drop the chart icon into one of these window to add a new chart at that location.  Once you have more than one chart you will only be able to add new charts in the existing orientation (horizontal or vertical).
-![Adding Windows](images/window_add.png)
 
