@@ -1,5 +1,5 @@
 ---
-title:  Menus and Toolbars
+title:  Menus 
 taxonomy:
     category: docs
 ---
@@ -9,54 +9,30 @@ taxonomy:
 
 ### File
 
-Open FID...
+Open...
 
-:    Display a file dialog in which you can select the unprocessed (FID) NMR data set to open.
-Typically you will select an Agilent ".fid" directory, an Agilent "fid" file, or a Bruker "fid" or "ser" file, or an NMRView (.nv). The file will be opened, the first row of raw data displayed,
-and the Processor window will be opened.
+:    Display a file dialog in which you can select the NMR dataset to open. You can open raw data (FIDs) in Bruker (fid and ser), Varian/Agilent (fid), Nanalysis (.dx), SpinIt (data.dat) and generic JCAMP (.dx) formats.  You can open processed data in NMRViewJ (.nv), Sparky (.ucsf), Bruker (1r, 2rr...), JCAMP, and SpinIt formats.  The opened data file will replace the current display.  If the data is an unprocessed 1D or 2D (FID) file, the Processor pane will open on the right side and a list of processing operations will be generated and applied.
 
-Open Dataset...
+Recent Files >
 
-:    Display a file dialog in which you can select the processed  NMR data set to open.
-At present you can open NMRViewJ (.nv) and Sparky (.ucsf) format files.
-The dataset will be displayed (vector for 1D or contour plot for 2D or higher)
-in the currently active spectrum window.  If a dataset is already present it the
-active window it will be replaced with the new dataset.
+:  A menu of recently opened unprocessed (FID) or processed NMR datasets.  Selecting an item from the menu will cause it to be opened, and displayed in the active spectrum window.
 
+Dataset Browser... >
+
+: Open the Dataset Browser which allows you to browse directories and locate NMR datasets.
+
+Export Graphics >
+
+: Export the current spectrum display in SVG, PDF or PNG formats. SVG and PDF are vector formats which preserve the full resolution of the graphics.  PNG files are bitmaps at a fixed resolution.
 
 Open Dataset (No Display)...
 
-:    Display a file dialog in which you can select a processed  NMR data set to open.
-The dataset will be opened in NMRFx, but won't be immediately displayed in a spectrum
-window.  You can select it for display later from the spectrum attributes window
-or using the Dataset icon in the toolbar of a spectrum window.
+: Open processed datasets without displaying them in the current window.  This allows you to use them in non-gui operations, or to have more control over displaying multiple datasets in windows.
 
-Recent FIDS >
-
-:  A menu of recently opened unprocessed (FID) NMR datasets.  Selecting an item
-from the menu will cause it to be opened, and displayed in the active spectrum window.
-
-Recent Datasets>
-
-:  A menu of recently opened,  processed  NMR datasets.  Selecting an item
-from the menu will cause it to be opened, and displayed in the active spectrum window.
-
-New Window
-
-:    Create a new spectrum display window.   
-
-New NMRFx Server
-
-:  Sets up a socket that can listen for commands from other applications.  Currently
-this can be done from the CoMD/NMR Dynamics Software.
-
-Export SVG...
-
-:    Create an SVG file containing a rendering of the currently active spectrum.  Note:  at present, only the active spectrum chart in a single window will be exported to the file.
 
 ### Projects
 
-NMRFx Projects are similar to NMRViewJ projects in that they consist of a main directory and a series of subdirectories.  Each subdirectory contains data for a particular data type (datasets, peaks, molecules etc.).  Data is stored in simple text files (rather than the STAR format used in NMRViewJ).  NMRFx has a built-in copy of Git, a version control system allowing it to keep a history of project changes.
+NMRFx Projects are similar to NMRViewJ projects in that they consist of a main directory and a series of subdirectories.  Each subdirectory contains data for a particular data type (datasets, peaks, molecules etc.).  The primary storage for most information (molecular structure, peak lists, assignments etc.) is a BMRB NMR-STAR format file within the projects **star** subdirectory.  NMRFx has a built-in copy of Git, a version control system allowing it to keep a history of project changes.
 
 Open...
 
@@ -78,7 +54,7 @@ Save As...
 Close
 
 :  Close the current project.  After you confirm this action, all  molecules, peaklists
-and assignments will be discarded.
+and assignments will be discarded.  All spectral display windows, but one, will be closed.
 
 Open STAR3
 
@@ -86,7 +62,7 @@ Open STAR3
 
 Save STAR3...
 
-:  Write project information (peakliss, assignments, molecules etc.) to a BMRB STAR3 format file.
+:  Write project information (peaklists, assignments, molecules etc.) to a BMRB STAR3 format file.
 
 Open Sparky Project:
 
@@ -95,6 +71,11 @@ Open Sparky Project:
 attributes of the Sparky files might not be imported properly or at all.
 
 ### Spectra
+
+New Window
+
+:    Create a new spectrum display window.   
+
 
 Delete Spectrum
 
@@ -113,6 +94,9 @@ Sync Axes
 
 :    Preliminary support for synchronized axes.  All the spectrum charts in a single window will be synchronized across dimensions that share the same label.  Changing the x, y and plane values in one window will result in the other windows being redrawn so that they share the same values on similar dimensions.  There is not currently a method to restrict the synchronization to specified axes, remove synchronization, or synchronize spectrum charts in different windows.  These features will be coming in a subsequent version.
 
+Copy Spectrum as SVG Text
+
+:  The spectral display can be copied to the clipboard as SVG (scalable vector graphics) text.  The result can be pasted into some graphics applications, but at present this only works for some applications.  For example, we have used this successfully with Affinity Designer on MacOS.
 
 Align Spectra
 
@@ -121,30 +105,6 @@ Align Spectra
 Analyzer...
 
 :  Display the spectrum analysis window.  This allow you to measure intensities in a specified region of the spectrum (area with the crosshairs).
-
-Show Measure Bar...
-
-: Show a toolbar across the bottom of the spectrum with tools and displayed values used
-for measuring positions, position deltas, intensities and signal/noise ratio.
-
-Show Comparator...
-
-: Show a toolbar across the bottom of the spectrum with controls for selecting
-a pair from multiple datasets.  You can use it to do pairwise comparisons of
-spectra.
-
-Show Regions Analyzer...
-
-:  Show a window with controls for analzying spectral regions.  Regions can be added, adjusted
-split and removed. Peaks can be added to the region and an implementation of Objective 
-Deconvolution used to add peaks to the region to deconvolute overlapping signals.
-
-Copy Spectrum as SVG Text
-
-:  The spectral display can be copied to the clipboard as SVG (scalable vector graphics)
-text.  The result can be pasted into some graphics applications, but at present
-this only works for some applications.  For example, we have used this
-successfully with Affinity Designer on MacOS.
 
 ### Molecules
 NMRFx can read in molecular structures in several different formats, including
@@ -164,7 +124,7 @@ Read Sequence...
 Read PDB...
 
 :   Bring up a file selection dialog to select and open a PDB format
-        file. This is the standard way to read in pdb files. NMRView
+        file. This is the standard way to read in pdb files. NMRFx
         first reads the pdb file to determine the amino acid sequence.
         Next, it reads the corresponding residues from the residue
         library. Finally, it reads coordinates from the pdb file for
@@ -174,7 +134,11 @@ Read PDB...
         the residue library but not in pdb file, will be included in
         structure list but will not be displayed. See the section on
         Molecular Structures to learn about using
-        molecular structures in NMRView.
+        molecular structures in NMRFx.
+
+Read Coordinates...
+
+:   Reads a file of atomic coordinates of a macromolecule and sets the coordinates of an existing molecule (in NMRFx) to the values found in the file.  File must be stored in the PDB format as defined by the Protein Data Bank.  The atoms and residues of the already in-memory molecule are not changed, only the xyz coordinates.
 
 Read PDB XYZ...
 
@@ -184,17 +148,38 @@ Read PDB XYZ...
         library so no connectivity information is available. If this is
         needed use the pdb command instead.
 
+Read mmCIF...
+
+:   Open a macromolecular structure file (the successor to PDB files).  Support for mmCIF files is still under development..
+
+
 Read Mol...
 
 :   Open a small molecule (.mol or .sdf) file.
 
+Read Mol2...
 
-Sequence GUI
+:   Open a small molecule (.mol2) file.
+
+Read SMILEs...
+
+:   Open a file containing one or more SMILE molecule descriptions.
+
+
+Input  SMILE...
+
+: Input a molecule in SMILE format.  You will be prompted for the SMILE string and a name for the molecule.  The SMILE string will be parsed and two-dimensional coordinates for the molecule generated.
+
+Clear Molecules...
+
+: Remove all existing molecules (you will be prompted to confirm this action)
+
+Sequence Editor...
 
 : Display a window in which you can enter the single letter sequence
 for an Protein, RNA or DNA polymer.
 
-Atoms
+Atom Table...
 
 :   Select this to bring up the Assignments Panel that is
     used to keep track of chemical shift assignments.
@@ -202,17 +187,17 @@ Atoms
 Viewer
 
 : Display the molecular viewer.  This can be used to display the 3D structure,
-a 2D RNA sequence, or a 2D small molecule view.
+a 2D RNA secondary structure, or a flat (2D) view of a small molecule.
 
 RDC Analysis...
 
 : Display the RDC Analysis window
 
-Show Spectrum Library
+RNA Label Scheme
 
-: Display a toolbar at the bottom of the spectrum window that can be used
-to select and display the spectrum of molecules from the built-in metabolite
-library.
+: Show a window that can be used to specify the isotopic labeling scheme for RNA
+molecules.
+
 
 ### View
 
@@ -221,28 +206,18 @@ Show Console
 :    Display the Console window.  The console can be used in Jython (Java version of Python) or R (statistical language) modes.
 
 
+Show Log Console
+
+:    Display the Log Console window.  The Log Console shows error, information and warning  messages that might be generated during various actions.
+
+
 Show Datasets
 
 :   Show a table of currently opened datasets.  Each row of the table shows the dataset name, number of dataset dimensions, default contour level, scale value, default contouring parameters and reference information.  Reference information is displayed for a single dimension at a time.  A pop-up menu on the DimN header allows you to choose the display dimension.  The Draw menu at top of the Dataset Table window allows you to draw selected datasets in a variety of arrangements.
 
+Show Regions Table
 
-Show Attributes
-
-:    Display the spectrum attributes window.
-
-
-Show Processor
-
-:    Display the Processor control window (it appears automatically if you open an FID)
-
-Show Scanner
-
-:    Display the Scanner window.  The scanner can be used to process, display and analyze sets of spectra.
-
-RNA Label Scheme
-
-: Show a window that can be used to specify the isotopic labeling scheme for RNA
-molecules.
+: Show a table of spectral regions.  The tool has actions for saving, loading, adding, removing and integrating regions.
 
 
 ### Peaks
@@ -251,45 +226,48 @@ Show Peak Tool
 
 :    The Peak tool allows the user to work with peaks and their peak lists.  Users of NMRViewJ will recognize it as being similar to the Peak Inspector and having capabilities of the Peak Reference tool.  
 
-Show Peak Navigator
+Show Peak Table
 
-:    The Peak Navigator will appear as a tool bar at the bottom of the current spectrum window.  It allows stepping through a peak list and updating the spectrum display to a region around the current peak.
+:    The Peak Table shows a table of all the peaks in a particular list.  
+
+
+Show Peak List Table
+
+:    The Peak List Table shows a table of all the current Peak Lists.  The table includes information on what dataset the peak list is associated with, the assignments, the number of peaks in the list and the number of peaks that have been marked for deletion or assigned.
+
 
 Link By Labels
 
-:    This menu action will link peaks that have common labels.  Once linked they will move in synchoriny when using the Peak Slider, and changing the label for one peak will change the label for all linked peak dimensions.
-
-Show Peak Slider
-
-:    The Peak Slider will appear as a tool bar at the bottom of the current spectrum window.  When present peaks that are linked to each other will move together when any one peak is moved.  The toolbar provides tools for freezing (and "thawing") peaks into the current position so they can't be moved.
-
-Show Path Tool
-
-:    Display a tool at the bottom of the spectrum window that can be used for
-finding and measuring peak paths present in experiments such as ligand
-or pressure titrations.
-
-Show Multiplet Analyzer
-
-:  Display a window containing tools for analyzing multiplets in one-dimensional spectra.
+:    This menu action will link peaks that have common labels.  Once linked they will move in synchrony when using the Peak Slider, and changing the label for one peak will change the label for all linked peak dimensions.
 
 Show Ligand Scanner
 
-:  Display a window containing tools for analyzing shifted peaks including
-minimum chemical shift changes and PCA analysis.
+:  Display a window containing tools for analyzing shifted peaks including minimum chemical shift changes and PCA analysis.
+
+Show NOE Table
+
+:  Display a window containing tools for calibrating and exporting NOE constraints.
+
+
+Show ZZ Tool
+
+:  Display a window containing tools for fitting ZZ (chemical exchange) datasets
+.
 
 **Assign Tools**
 
    These are all prototypes of new tools for assigning proteins and RNA.  Under rapid
 development
     
-    Show Peak Assigner
+Assign on Pick
 
-    Show Assign on Pick
+: If this is active then when you pick a peak (in cursor peak-pick mode) you will be prompted for an assignment of the peak. The chemical shift of the pick position will be shown and if that positon overlaps existing assignments you will be given a list of assignments to choose from.  If you close the window without clickign the **Assign** button the peak will be removed.
 
-    Show Atom Browser
 
-    Show RunAboutX
+Show Atom Browser
+
+: Experimental tool for RNA assignments
+
 
 ### Window
 
@@ -301,8 +279,24 @@ Online Documentation
 
 :    Open the default web browser and display the online documentation.
 
+NMRFx Web site
+
+:    Open the default web browser and display the [NMRFx web site](http://nmrfx.org).
+
+NMRFx Mailing List 
+
+:    Open the default web browser and display the [NMRFx mailing list site](https://groups.io/g/NMRFx).
+
 
 NMRFx Publication
 
-:    Open the default web browser and display the first NMRFx Processor publication.  Please cite this reference when publishing manuscripts describing research that used NMRFx Processor in the analysis.
+:    Open the default web browser and display the first [NMRFx Processor publication](https://link.springer.com/article/10.1007/s10858-016-0049-6).  Please cite this reference when publishing manuscripts describing research that used NMRFx Processor in the analysis.
+
+Check Version
+
+:    Check the NMRFx web site to see what the latest version of NMRFx is.
+
+Open Source Libraries
+
+:    NMRFx uses various open-source libraries.  Open the default web browser and display information on the  open source [libraries](https://nmrfx.org/downloads/oss/dependencies.html) used by NMRFx
 

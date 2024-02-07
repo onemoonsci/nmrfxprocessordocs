@@ -1,5 +1,5 @@
 ---
-title:  Menus and Toolbars
+title:  Toolbars
 taxonomy:
     category: docs
 ---
