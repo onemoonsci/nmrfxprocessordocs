@@ -4,7 +4,10 @@ taxonomy:
     category: docs
 ---
 
+
 ## Left (View Control) Toolbar
+
+The toolbar at the left side of the spectrum has controls for interactively controlling the view of the spectrum.
 
 ![Left ToolBar](images/toolbar.png)
 
