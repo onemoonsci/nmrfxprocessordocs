@@ -16,11 +16,12 @@ Select the appropriate file and click the **Open** button in the File Browser. T
 
 The NMRFx Analyst window will display the spectrum in the center of the window, a row of interactive view controls at left, cursor controls and tools on the bottom, and a Processor region at the right.  The Processor region contains "Accordion Panes".  Each pane has a title bar and clicking on it will open that pane (and close the currently opened one).  There will always be a Parameter Pane at the top, and then a series of Panes for the one or more dimensions of an experiment.  At the bottom are a series of menus and buttons for interacting with processing actions and scripts.
 
-The Parameter Pane will be described in more detail below, but it gives access to information about the pulse sequence, solvent, temperature etc., and acquisition parameters for each dimension.
+The Parameter Pane (visible in screenshot above) will be described in more detail below, but it gives access to information about the pulse sequence, solvent, temperature etc., and acquisition parameters for each dimension.
 
 Each Dimension Pane can be opened to show a list of the various processing operations used to process the current dataset.
 ![](images/dimpane.png)
-The Dimension Pane itself, contains a series of panes, one for each operation that is applied to the data.  A checkbox at the right of the title can be used to turn on or off the action of that operation.  Disabled operations are apparent by the title being rendered in gray, and the checkbox being off.  The automatic generation of processing operations (when loading 1D or 2D files) includes operations that are commonly used.  Some of these operations may, at the start be present in the list (so they are readily accessible), but disabled.  In the example above it can be seen that SignalSuppression operation (typically used for removing solvent signals) is accessible, but turned off by default. Many additional, but less used operations, are available via the "+" menu, but aren't by default added.  Operations are executed, during processing, in the order they appear in the Dimension Pane.  Generally operations are automatically inserted in an appropriate location, but sometimes you will want to move them.  You can click on the arrows to the right of the title, and while holding the mouse button down, drag the operation to a new location.  
+
+The Dimension Pane itself, contains a series of panes, one for each operation that is applied to the data.  A checkbox at the right of the title can be used to turn on or off the action of that operation.  Disabled operations are apparent by the title being rendered in gray, and the checkbox being off.  The automatic generation of processing operations (when loading 1D or 2D files) includes operations that are commonly used.  Some of these operations may, initially, be present in the list (so they are readily accessible), but disabled.  In the example above it can be seen that SignalSuppression operation (typically used for removing solvent signals) is accessible, but turned off by default. Many additional, but less used operations, are available via the "+" menu, but aren't by default added.  Operations are executed, during processing, in the order they appear in the Dimension Pane.  Generally operations are automatically inserted in an appropriate location, but sometimes you will want to move them.  You can click on the arrows to the right of the title, and while holding the mouse button down, drag the operation to a new location.  
 
 Each operation pane can be opened to show controls for parameters that are appropriate to that operation.  Some categories are grouped operations.  For example, opening the Apodization pane shows a series of panes for each type of apodization.  These can be opened and their parameters set.  Here, for example, is the ExpD (exponential decay) operation which has controls for setting the line broadening and a multiplier for the first data point.
 
@@ -32,16 +33,17 @@ By default, with 1D and 2D spectra, the processing is in an "Auto Update" mode. 
 As noted above, you can turn operations on and off, and interactively view the results of applying them.  If you want to fully remove an operation you can right-click on the title bar to get a menu with a Delete entry.
 
 
-If there's nothing unusual in your experimental parameters or data, the automatic generation command will come up with a reasonable list of operations. But, of course, we're not perfect and NMR has so many ways of doing experiments that the processing scheme may not be ideal, or may not even work.  Sometimes it's simply impossible to figure out how an experiment should be processed from analyzing the parameters.  So you may want or need to add or remove operations and adjust the operation's parameters manually.  For this simple example, we'll use the defaults at first, and learn about changing them below.
+If there's nothing unusual in your experimental parameters or data, the automatic generation command will come up with a reasonable list of operations. But, of course, NMR has so many ways of doing experiments that the processing scheme may not be ideal, or may not even work.  Sometimes it's simply impossible to figure out how an experiment should be processed from analyzing the parameters.  So you may want or need to add or remove operations and adjust the operation's parameters manually.  For this simple example, we'll use the defaults at first, and learn about changing them below.
 
 
 
 When NMRFx creates the processing operations for a 1D file, it uses an automatic routine to calculate appropriate phase values, and inserts a PHASE operation with those values. 
 But, it's possible that you'll want to change, or at least fine-tune, those phase values.  It is possible to adjust the phases of processed 1D and nD spectra, but its generally good to get the phases correct during the processing.  In part that's because then the correct phase parameters will be saved in the process.py script.
 
-![](images/phaseop.png)
 
 To adjust the phasing, you'll at least need the **FT** operation included in the script so that the signal is displayed in the frequency domain.  Our automatically generated scripts includes the FT command so as soon as we generated the script the data is displayed as a spectrum. Note that the automatically generated script may include a baseline correction operation.  When adjusting the phase its a good idea to disable the baseline correction algorithm.  Just click the checkbox on the **Baseline Correction** title bar, adjust the phasing, and then reactivate the baseline correction.
+
+![](images/phaseop.png)
 
  Phasing will require at least the adjustment of the zero order phase parameter, and possibly the first order parameter as well. Expand the **PHASE** operation (click on its title bar).  Besides the parameter settings, the **PHASE** operation has some menus.  These menus (used here and for some other actions in NMRFx) are so-called SplitMenuButtons.  The controls are split into a button area at left and a menu at right.  In our usual convention, clicking the button gives immediate access to the action that is the first item in the menu.  In the **PHASE** operation there are three SplitMenuButtons, for setting the pivot, setting fixed phase values, and automatic phasing.
 
@@ -79,3 +81,5 @@ After phasing turn the baseline correction back on if needed.
 Once you've processed the dataset you can close up the ***Processor*** tab.
 
 ![](images/noproc.png)
+
+That's it!  You've processed your first 1D NMR spectrum in NMRFx Analyst.
