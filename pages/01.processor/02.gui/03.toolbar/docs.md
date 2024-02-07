@@ -1,10 +1,10 @@
 ---
-title:  Toolbars
+title:  Left (View control) Toolbar
 taxonomy:
     category: docs
 ---
 
-## Left Toolbar
+## Left (View Control) Toolbar
 
 ![Left ToolBar](images/toolbar.png)
 
