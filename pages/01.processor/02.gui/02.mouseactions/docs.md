@@ -1,5 +1,5 @@
 ---
-title:  Mouse and Keyboard
+title:  Mouse and Trackpad Actions 
 taxonomy:
     category: docs
 ---
@@ -8,7 +8,6 @@ The mouse can be used in four different modes: Crosshair, Selector, Peak, Region
 crosshairs can be displayed and moved and a **Selector** mode in which items can be selected and regions can be "dragged out".  Switch between the modes by clicking the buttons at bottom of the spectrum.  The default mode is the **Selector**.
 
 ![Cursor modes](images/cursorbuttons.png)
-
 
 [Selector](#selector)
 :  Use this mode to "drag out" view regions, and to select peak or other objects on the spectrum.
