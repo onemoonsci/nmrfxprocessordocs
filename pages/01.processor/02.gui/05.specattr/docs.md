@@ -4,7 +4,6 @@ taxonomy:
     category: docs
 ---
 
-#Spectrum Attributes#
 The right hand side of a spectrum window can contain four different panes, **Processor**, **Content**, **Attributes**, and **Tools**.  Here we describe the use of the **Attributes** pane for the control of the display of spectra and peaks, including axes, color and borders.
 
 ![Spectrum With Attributes](images/specwithattr.png)
@@ -35,7 +34,6 @@ Apply To
 ###View###
 
 Controls the overal shape of the spectrum region view.
-
 
 ![View](images/view.png)
 
@@ -105,9 +103,11 @@ Line Width:
 ---
 <a id="peakappearance"></a>
 ###Peak Appearance###
-![Peak Appearance](images/peakappearance.png)
 
 The Peak Appearance Panel is used to control the colors and other options  used to render the peak lists.
+
+![Peak Appearance](images/peakappearance.png)
+
 
 
 Show Peaks
@@ -283,10 +283,10 @@ Show integration regions
 ---
 <a id="axes"></a>
 ### Axes and Borders
+
+The **Axes and Borders** panel is used to control various colors, font sizes, borders and the display of a grid and dataset titles.
+
 ![Axes and Borders](images/axes.png)
-
-
-The **Style** panel is used to control various colors, font sizes, borders and the display of a grid and dataset titles.
 
 
 Show grid on spectrum
@@ -309,8 +309,9 @@ Axis label font size
 ---
 <a id="colors"></a>
 ###Colors###
-![Colors](images/colors.png)
 The colors section allows you to control the color of the background, axes, and crosshairs.  Each attribute has a color chooser and a checkbox.  If the checkbox is turned off that attribute will use a default color.
+
+![Colors](images/colors.png)
 
 Background
 : The color of the background.  If turned off, the background is transparent and the default color of the spectrum canvas shows through
@@ -328,35 +329,36 @@ Cross 1
 ---
 <a id="slices"></a>
 ### Slices Panel
-![Slices](images/slices.png)
 
 
 Slices (1D vectors extracted from dataset) can be drawn in a horizontal and vertical orientation across the spectrum.  Slices are turned on with the checkbox in the control region below the spectrum, and their appearance is controlled with this dialog.  Two slices can be drawn, one at the position of the black crosshairs and one at the position of the red crosshairs.  By default, only the first is drawn.
 
-**Offset Tracking**
+![Slices](images/slices.png)
+
+Show Slices:
+: Turn this on to show slices (1D traces drawn through the contour plot).
+
+**Center slices at crosshair**
 
 :  By default the slices are drawn with an offset to position them at the center of the spectrum.  This offset value can be changed with the Vertical and Horizontal Sliders.  If the **Offset Tracking** checkbox is selected then the slices will be automatically positioned to be drawn so they are centered at the current postion of the crosshairs.
 
-**Colors**
+Use dataset color for slice
+:  By default, the slices are drawn with the color of the dataset they are slicing.  If you turn off the this checkbox then the color of the slices will be controlled by the two (one for each pair of slices) color selectors.
 
-::  By default, the slices are drawn with the color of the dataset they are slicing.  If you turn off the **Use Dataset Color** checkbox then the color of the slices will be controlled by the two (one for each pair of slices) color selectors.
+Slice 1
+: Turn on or off the display of slice number 1 (two slices are available).  If **Use dataset color** is turned off then you can control the color of this slice with the color selector.
 
-**Slice**
+Slice 2
+: Turn on or off the display of slice number 2 (two slices are available).  If **Use dataset color** is turned off then you can control the color of this slice with the color selector.
 
-:  The checkboxes under **On** is used to turn on / off the display of each pair (vertical/horizontal) of slices.  By default only the first (corresponding to the black crosshair position) is drawn.
+Scale
+: Use the slider to control the scale of the slider.  Larger values will result in higher slices (slices are also get bigger with smaller contour levels)
 
-**Scale**
+X Offset
+:   Select a value using the slider to specify the offset position(from 0.0 to 1.0) at which vertical slices are drawn. be drawn.  Only active if **Center slices at crosshair** is off.
 
-:   Type an entry in this box to specify the scale value at which 1D slices are to be drawn. This value is multiplied by a global scale parameter (set in the Prefs dialog, default 1e6) to generate the actual value that is used. The up and down arrows provide a convenient means to increment or decrement the scale level. Clicking on the up arrow raises the scale level to a value equal to the current level times the current value of the multiplier (the value in the next field). Clicking on the down arrow lowers the scale level to a value equal to the current level divided by the current value of the multiplier (the value in the next field). Whenever the **Level**value is changed the **Scale** value is changed to be 10.0 times the **Level** value as this generally provides good results.
-
-**Offset for Vertical Slices**
-
-:   Select a value using the slider to specify the offset position(from 0.0 to 1.0) at which X (and Z) slices are drawn. be drawn.  Only active if **Offset Tracking** is off.
-
-**Offset for Horizontal Slices**
-
-:   Select a value using the slider to specify the offset position(from 0.0 to 1.0) at which Y (and Z2) slices are drawn. be drawn.  Only active if **Offset Tracking** is off.
-
+Y Offset
+:   Select a value using the slider to specify the offset position(from 0.0 to 1.0) at which horizontal slices are drawn. be drawn.  Only active if **Center slices at crosshairO** is off.
 
 ---
 #### Color Schema ####
@@ -372,5 +374,4 @@ The sequential and diverging schemes are used when one wants an approximately co
 The **reverse** checkbox can be used to reverse the order of the colors in the schema so that the first dataset gets the last color and the last dataset gets the first color in the schema.  Changing this setting will update the color display, but you have to reselect a schema (click the button to the left of the scheme) to apply it to the spectra.
 
 Sometimes the colors at the edge of the spectra may be too light or dark.  You can use the range slider at top of the schema window to limit the range of colors that are used.  This is only used for the sequential and diverging schema.  As with the **reverse** button, changing the values will immediately update the schema display, but you need to select a schema to apply the updated colors to the spectra.
-
 
