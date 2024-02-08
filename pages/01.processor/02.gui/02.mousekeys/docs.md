@@ -4,8 +4,74 @@ taxonomy:
     category: docs
 ---
 
-The mouse can be used in multiple modes.  The two primary modes are a Crosshair mode in which
-crosshairs can be displayued and moved and a Selector mode in which items can be selected and regions can be "dragged out".
+The mouse can be used in four different modes: Crosshair, Selector, Peak, Region.  The two primary modes are a **Crosshair** mode in which
+crosshairs can be displayed and moved and a **Selector** mode in which items can be selected and regions can be "dragged out".  Switch between the modes by clicking the buttons at bottom of the spectrum.  The default mode is the **Selector**.
+
+![Cursor modes](images/cursorbuttons.png)
+
+
+Selector
+:  Select
+
+Crosshair
+:  Crosshair
+
+### Using the Selector Cursor
+
+Selector mode can be used when the cursor is in the "selector" mode.
+Click the arrow button near the lower left corner of the window.
+
+**To expand the spectrum view**
+
+Press and hold the left mouse button with the cursor at the position you
+want to start the expansion at. Keep the button down as you drag the
+crosshair to a new position. As you drag the cursor a
+blue box will be displayed to indicate the new region.
+When you release the mouse button the
+window will expand to display the selected region.  Initially the
+blue box is drawn with dashed lines, you need to drag the box at
+least big enough so that the lines are solid when you release the
+mouse.  This requirement for dragging out at least a minimum sized
+region minimizes the risk of accidental expansions.  Also, if you
+change your mind about expanding the region you can just drag the
+mouse back towards the origin.  Once the box is displayed with
+dashed lines you can release the mouse button and no resizing will
+be done.
+
+
+You can move the spectrum region by
+dragging the mouse while the cursor is positioned
+within the left, to drag the y-axis,  or bottom, to drag the x-axis,
+axis regions.
+
+**To add or adjust a spectrum region**
+
+Spectrum regions, used for integration etc., can be added to 
+1D spectra. 
+Use the same protocol as above to expand the view, but press and hold
+the Alt key on the keyboard while performing the actions.  If you do this in an area that doesn't overlap any previously existing regions, a new region will be added to the spectrum. If the area does overlap a region, then that region will be adjusted so the limits correspond to the selected area.
+(You can also do this with the cursor in **Region** mode without needing to hold the key down, see belo)
+
+When the region is added you'll see an integral line drawn above the 
+added region.
+
+**To select peaks**
+
+If peak boxes are displayed on the spectrum, you can select the peaks
+with the cursor in Selector mode.  Click on an individual peak box
+to select it.  If this is a 1D spectrum, then click on the 
+peak label drawn below the spectrum to select it.
+Once selected, you can move the peak box on the spectrum
+by clicking and dragging it.  You can resize the peak box by pressing
+the Alt-key down before you start dragging the mouse
+
+You can select multiple peaks by clicking and
+dragging a box, as done with expansions or regions described above,
+but with the Shift-key held down..
+When you release the mouse button, all the peaks in the selection
+box (displayed in yellow), will be selected.  As in the above modes,
+if you release the mouse while the box border is drawn with dashed 
+lines no action will be taken.
 
 ## Using the Crosshair Cursor
 
@@ -48,18 +114,6 @@ to switch to one-button mouse mode and c3 to switch to two button
 mouse mode ("c3" because this is typically used with three button
 mice)..
 
-**To remove the crosshairs:**
-
-Click the redraw button in the control panel to the right of the
-spectrum. When the spectrum is redrawn the crosshairs will not be
-displayed.
-
-**To move the spectrum region**
-
-Hold down the Command key (Mac OS X) or Control key (Windows or Linux)
-and click and drag with the left mouse button. The spectrum will pan
-left and right along with the cursor. With 2D spectra you can also pan
-the spectrum region vertically.
 
 **Status panel displays crosshair positions**
 
@@ -115,73 +169,6 @@ And remember, there are two types of labels, one set with "label" and
 one set with "dlabel". The former is used for things like crosshair
 correlation as described here, and the later for the value that is
 actually displayed on the spectrum.
-
-### Using the Selector Cursor
-
-Selector mode can be used when the cursor is in the "selector" mode.
-Click the arrow button near the lower left corner of the window.
-
-**To expand the spectrum view**
-
-Press and hold the left mouse button with the cursor at the position you
-want to start the expansion at. Keep the button down as you drag the
-crosshair to a new position. As you drag the cursor a
-blue box will be displayed to indicate the new region.
-When you release the mouse button the
-window will expand to display the selected region.  Initially the
-blue box is drawn with dashed lines, you need to drag the box at
-least big enough so that the lines are solid when you release the
-mouse.  This requirement for dragging out at least a minimum sized
-region minimzes the risk of accidental expansions.  Also, if you
-change your mind about expanding the region you can just drag the
-mouse back towards the origin.  Once the box is displayed with
-dashed lines you can release the mouse button and no resizing will
-be done.
-
-**To move the spectrum region**
-
-Hold down the Shift and the Alt keys together, and then
-click and drag with the left mouse button. The spectrum will pan
-left and right along with the cursor. With 2D spectra you can also pan
-the spectrum region vertically.
-
-Alternatively, you can move the spectrum region by
-dragging the mouse while the cursor is positioned
-within the left, to drag the y-axis,  or bottom, to drag the x-axis,
-axis regions.
-
-**To add or adjust a spectrum region**
-
-Spectrum regions, used for integration etc., can be added to 
-1D spectra. 
-Use the same protocol as above to expand the view, but press and hold
-the Alt key on the keyboard while performing the actions.
-If you do this
-in an area that doesn't overlap any previously existing regions, a new
-region will be added to the spectrum. If the area does overlap a region,
-then that region will be adjusted so the limits correspond to the
-selected area.
-
-When the region is added you'll see an integral line drawn above the 
-added region.
-
-**To select peaks**
-
-If peak boxes are displayed on the spectrum, you can select the peaks
-with the cursor in Selector mode.  Click on an individual peak box
-to select it.  If this is a 1D spectrum, then click on the 
-peak label drawn below the spectrum to select it.
-Once selected, you can move the peak box on the spectrum
-by clicking and dragging it.  You can resize the peak box by pressing
-the Alt-key down before you start dragging the mouse
-
-You can select multiple peaks by clicking and
-dragging a box, as done with expansions or regions described above,
-but with the Shift-key held down..
-When you release the mouse button, all the peaks in the selection
-box (displayed in yellow), will be selected.  As in the above modes,
-if you release the mouse while the box border is drawn with dashed 
-lines no action will be taken.
 
 
 ## Key Bindings
@@ -273,7 +260,7 @@ axes (x and y) and planes (z, a ...).  In the following descriptions, the **?** 
 
 **j?VALUE**
 
-:   For axes representing planes (like **z**), this will jump the view to the spcified plane. If the VALUE  has a decimal point (**jz117.3**), then
+:   For axes representing planes (like **z**), this will jump the view to the specified plane. If the VALUE  has a decimal point (**jz117.3**), then
 the value represents a position in ppm.  If there is no decimal point (**jz32**), the value represents a plane number.  For visible axes (x and y), 
 the view will jump to be centered on the specified value.  Because the number of characters is dependent on the specified value, you
 need to end the value by pressing the Enter key.
@@ -314,7 +301,7 @@ axes (x and y) and planes (z, a ...).  In the following descriptions, the **?** 
 
 **j?VALUE**
 
-:   For axes representing planes (like **z**), this will jump the view to the spcified plane. If the VALUE  has a decimal point (**jz117.3**), then
+:   For axes representing planes (like **z**), this will jump the view to the specified plane. If the VALUE  has a decimal point (**jz117.3**), then
 the value represents a position in ppm.  If there is no decimal point (**jz32**), the value represents a plane number.  For visible axes (x and y), 
 the view will jump to be centered on the specified value.  Because the number of characters is dependent on the specified value, you
 need to end the value by pressing the Enter key.
