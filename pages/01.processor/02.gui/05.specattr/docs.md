@@ -11,14 +11,23 @@ The right hand side of a spectrum window can contain four different panes, **Pro
 The Attributes section has the following titled panes.
 
 [View](#view)
+
 [Annotations](#annotations)
+
 [Contour Levels](#contourlevel)
+
 [Contour Appearance](#contourappearance)
+
 [Trace Attributes](#traceattributes)
+
 [Integrals](#integrals)
+
 [Peak Appearance](#peakappearance)
+
 [Axes and Borders](#axes)
+
 [Colors](#colors)
+
 [Slices](#slices)
 
 
