@@ -10,39 +10,29 @@ crosshairs can be displayed and moved and a **Selector** mode in which items can
 ![Cursor modes](images/cursorbuttons.png)
 
 
-Selector
-:  Select
+[Selector](#selector)
+:  Use this mode to "drag out" view regions, and to select peak or other objects on the spectrum.
 
-Crosshair
-:  Crosshair
+[Crosshair](#crosshair)
+:  Use this mode to display crosshair cursors.  These can be used for selecting regions to expand and using them as lines to correlate the position of spectral features.
 
-### Using the Selector Cursor
+[Peak](#peak)
+:  Use this mode to pick peaks by clicing the mouse over a location to pick a peak at or by dragging out a region in which peaks should be picked.
+
+[Region](#region)
+:  Use this mode to create regions in one-dimensional spectra..
+
+
+### Using the Selector Cursor <a id="selector"></a>
 
 Selector mode can be used when the cursor is in the "selector" mode.
 Click the arrow button near the lower left corner of the window.
 
 **To expand the spectrum view**
 
-Press and hold the left mouse button with the cursor at the position you
-want to start the expansion at. Keep the button down as you drag the
-crosshair to a new position. As you drag the cursor a
-blue box will be displayed to indicate the new region.
-When you release the mouse button the
-window will expand to display the selected region.  Initially the
-blue box is drawn with dashed lines, you need to drag the box at
-least big enough so that the lines are solid when you release the
-mouse.  This requirement for dragging out at least a minimum sized
-region minimizes the risk of accidental expansions.  Also, if you
-change your mind about expanding the region you can just drag the
-mouse back towards the origin.  Once the box is displayed with
-dashed lines you can release the mouse button and no resizing will
-be done.
+Press and hold the left mouse button with the cursor at the position you want to start the expansion at. Keep the button down as you drag the crosshair to a new position. As you drag the cursor a blue box will be displayed to indicate the new region.  When you release the mouse button the window will expand to display the selected region.  Initially the blue box is drawn with dashed lines, you need to drag the box at least big enough so that the lines are solid when you release the mouse.  This requirement for dragging out at least a minimum sized region minimizes the risk of accidental expansions.  Also, if you change your mind about expanding the region you can just drag the mouse back towards the origin.  Once the box is displayed with dashed lines you can release the mouse button and no resizing will be done.
 
-
-You can move the spectrum region by
-dragging the mouse while the cursor is positioned
-within the left, to drag the y-axis,  or bottom, to drag the x-axis,
-axis regions.
+You can move the viewed spectrum region by dragging the mouse while it is positioned in the left or bottom axis regions.
 
 **To add or adjust a spectrum region**
 
@@ -73,7 +63,7 @@ box (displayed in yellow), will be selected.  As in the above modes,
 if you release the mouse while the box border is drawn with dashed 
 lines no action will be taken.
 
-## Using the Crosshair Cursor
+## Using the Crosshair Cursor <a id="crosshair"></a>
 
 T> NMRFx can show two sets of crosshairs.  If you're using a 1-button mouse (or the trackpad on a laptop) the mouse moves the black crosshair at first.  The red crosshair will appear if you then click at some distance away from the black crosshair. Further actions of clicking and dragging will move whichever crosshair is closest when you click.  NMRFx will recognize that you have a 3-button mouse as soon as you click with either the second or third mouse button.  Once recognized, the black crosshair will be moved when the left mouse button is down, and the red crosshair when the middle mouse button is down.
 
@@ -170,6 +160,25 @@ one set with "dlabel". The former is used for things like crosshair
 correlation as described here, and the later for the value that is
 actually displayed on the spectrum.
 
+### Peak <a id="peak"></a>
+
+Use the cursor in peak mode to pick peaks.  This can be done by clicking the mouse when the cursor (in Peak mode) is over a peak in the spectrum (either in 1D trace or nD contour modes). 
+
+#### Picking traces (1D)
+
+In 1D (trace mode), click with the cursor positioned below the top of a signal.  By default, NMRFx will search to find the highest intensity near where you picked. There must be an data-point with intensity above the cursor position.  If you hold the shift-key down while clicking, then NMRFx will pick a peak at exactly the position of the cursor (and do so even if there is not a data-point with intensity above the cursor position).
+
+A powerful feature is to click the mouse down to the left (or right) of a group of signals and drag it to the right (or left).  A line will be drawn between the starting point and the current cursor position.  All peak signals above the line will be picked.  You can drag the mouse up and down to adjust the threshold line and watch as the picking interactively updates.  If you do this over a region that already has peaks, the existing peaks will be removed and replaced with new ones.  If the region doesn't already have peaks the new ones will be added to the existing (or newly created) peak list.
+
+#### Picking contours (2D)
+
+In contour mode, click with the mouse positioned near the top of a contour signal.  By default, NMRFx will find the highest intensity near where you picked and add a peak box at that position. If you hold the shift key down then NMRFx will pick a peak (and display a peak box) at exactly that position. 
+
+You can drag a region out (click at one point, and with mouse button held down, drag the cursor to a new position.  All peaks within that region, whose intensity is above the current display level, will be picked.
+
+### Region <a id="region"></a>
+
+Region mode only works (currently) in trace (1D) mode.  Just click the mouse at a starting position (and with mouse button held down) drag the cursor to a new region.  You'll see lines appear to indicate the starting and (current) ending position.  When you releasethe mouse button a region will be added. An integral trace will be drawn across the top of the region and will include an integral value.  The first region you add will receive an integral value normalized to 1.0.  Subsequent regions will be scaled relative to the first.
 
 ## Key Bindings
 
