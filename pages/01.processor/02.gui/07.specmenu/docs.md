@@ -64,16 +64,25 @@ Fit Planes (ZZ Intensity)
 ### Reference
 
 Set Reference...
+: Set reference values at the current crosshair position
+![Reference Dialog](images/refdialog.png)
+Enter a reference value for the X and Y (if 2D) positions and click **Apply**
+
 
 Shift Reference
+: Position the red crosshair at the position you want to move and the black crosshair at the chemical shift positions that you want the red position to be changed to.  Often you'll be positioning the red crosshairs on a peak in a spectrum you want to adjust, and the black crosshairs to overlap with the position of the corresponding peak in a spectrum that is properly referenced.
 
 Adjust Diagonal
+: Position the primary (black) crosshair on a peak that should be on the diagonal and choose this menu item.  The reference value of the y-axis will be changed so that the crosshair position has the same chemical shift on the two axes.
 
 Shift Peaks
+: Move peaks so that the position at the secondary (red) crosshair has the chemical shift of the  position of the primary (black) crosshair.
 
 Undo
+: Undo the last reference change
 
 Write Reference Parameters
+: Write out a parameter file for the dataset so new reference values are saved.
 
 ### Peak Linking
 
