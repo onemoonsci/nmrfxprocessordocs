@@ -7,6 +7,17 @@ taxonomy:
 
 Display, edit and invoke the processing script. The script is automatically changed to reflect operations and parameters that have been selected whenever you select this tab. The **File** menu has options for opening and saving scripts.
 
+Show Script
+: Display the Python script that implements the reference values and operations.
+    ![Script](images/script.png)
+
+Auto Generate
+: Examine the dataset parameters and generate an appropriate set of processing operations.
+
+Auto Generate (Arrayed)
+: Examine the dataset parameters and generate an appropriate set of processing operations appropriate to an arrayed (pseudo-2D or pseudo-3D) experiment. This command is useful as sometime s it is not possible to tell from the dataset parameters if the experiment is an arrayed experiment.
+
+
 Open Default
 
 :    Look for a file named *process.py* in the directory containing the currently opened FID.  This should only be done if a dataset is already opened. The script will be analyzed and the operation list and reference values for each dimension will be updated and then the displayed script will be updated. The FID and CREATE operations will be changed to be consistent with the currently opened dataset (and will therefore be changed from what was in the original script file).
