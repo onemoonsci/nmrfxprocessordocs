@@ -4,19 +4,25 @@ taxonomy:
     category: docs
 ---
 
-
-
-The Processor panel appears automatically when you open a raw NMR dataset (FID file) and can also be displayed by clicking the **Processor** button at top right of the spectrum. This part of the GUI is used for configuring and executing processing scripts.
+Processing is set up with controls in the **Processor** panel at the right side of the spectrum window.  This panel appears automatically when you open a raw NMR dataset (FID file) and can also be displayed by clicking the **Processor** button at top right of the spectrum. This part of the GUI is used for configuring and executing processing scripts.
 
 #### Load FID
 
+
 If you display the Processor panel (by clicking the **Processor** button) and the active chart in that window has a dataset that doesn't have a currently opened FID (that is the dataset was directly opened rather than being generated from processing an open FID), then the panel will contain a single button **Load FID**.  Clicking that button will load the FID that the current dataset was derived from. This only works if the appropriate FID can be identified.  For example, NMRFx format datasets processed with recent versions of NMRFx will have a parameter entry that stores the path to the FID.  But older ones, or files processed in other applications, won't.  If there is no parameter containing the FID file location a file browser will appear to select an FID file.
 
+![Load FID](images/loadfid.png)
+
 #### Simulate FID
+
+
 If you display the Processor panel (by clicking the **Processor** button) and the active chart in that window doesn't have a dataset, then the processor will contain a tab for use in generating simulated data vectors. This is useful for educational purposes, and allows students to simulate and process FIDs. 
 
+![Simulate](images/simulate.png)
 
 #### Process  FID
+
+If you display the Processor panel with a FID present, or if it is displayed when you open an FID dataset, then you'll get the full tool with multiple titled panes and controls.
 
 ![Processor](images/processor.png)
 
@@ -50,4 +56,4 @@ View Mode
     Spectrum
     :  The fully processed data (in all dimensions).  This represents the processed data as output to the output file.
 
-In FID, and FID w/OPs mode the dispalyed FID depends on what dimension titled pane is currently open.  For example, with *Dimension 1* opened, the direct (first) dimension of the dataset will be shown.  If the dataset has more than one dimension and the *Dimension 2* panel is opened then the first indirect (second dataset dimension) will be shown.  NMRFx Analyst is capable of extracting a vector along indirect dimensions so that one can see and observe the effect of processing operations not only on the directly detected FID, but also on indirectly detected FIDs. The utility (and sometimes capability) of showing these "indirectg FIDs" will depend on the type of experiment and its sensitivity.  But for many experiments it can be useful to do initial set up of the phases of the indirect dimension.
+In **FID**, and **FID w/OPs** modes the displayed FID depends on what dimension titled pane is currently open.  For example, with *Dimension 1* opened, the direct (first) dimension of the dataset will be shown.  If the dataset has more than one dimension and the *Dimension 2* panel is opened then the first indirect (second dataset dimension) will be shown.  NMRFx Analyst is capable of extracting a vector along indirect dimensions so that one can see and observe the effect of processing operations not only on the directly detected FID, but also on indirectly detected FIDs. The utility (and sometimes capability) of showing these "indirectg FIDs" will depend on the type of experiment and its sensitivity.  But for many experiments it can be useful to do initial set up of the phases of the indirect dimension.
