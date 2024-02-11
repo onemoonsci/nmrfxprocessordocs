@@ -18,7 +18,7 @@ If you display the Processor panel (by clicking the **Processor** button) and th
 
 #### Process  FID
 
-![Processor](images/processor.png)
+![Processor](images/processor2.png)
 
 The Processor panel has a series of titled panes and a set of controls at the bottom.  The titled panes open when you click on the title bar.  The top titled pane (labelled **PARAMETERS**) allows you to view and change (some) dataset parameters.  These include solvent, pulse sequence, temperature and dimension specific values like sizes, spectrometer frequency and sweep width.  The use of the parameters is described on the [Parameter Pane](../02.parameters) page.  The next series of titled panes (labeled **DIMENSION 1** etc.) contain a series of operations that carry out the actual processing (apodization, Fourier transform, phasing etc.).  The use of Dimension Processing panes are described on the [Operations](../03.operations) page. The controls at the bottom of the panel are used to trigger processing, interact with scripts or change the viewing mode. The use of the controls at the bottom of the Processor are described here.
 
