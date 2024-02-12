@@ -1,5 +1,5 @@
 ---
-title: Molecular Viewer
+title: 3D Molecular Viewer
 taxonomy:
     category: docs
 ---
