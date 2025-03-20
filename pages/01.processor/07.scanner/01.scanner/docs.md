@@ -19,19 +19,9 @@ After loading the table (directly from a table file) or via the folder scanning 
 
 If you load data via a table file, your table file can contain additional columns that will appear in this table.
 
-
-
 ## Menus
 
 ### File
-
-Set Scan Directory...
-
-:    A directory chooser will be displayed. Browse to and choose a directory. That directory, and all sub-directories will used when scanning and processing the NMR datasets (using the Scan Directory command, described below).
-
-Set Scan Output Directory...
-
-:    A directory chooser will be displayed. Browse to and choose a directory. That directory will be used to write the processed data to as well as file containing information in the table display.
 
 Scan Directory...
 
@@ -45,13 +35,31 @@ Save Table...
 
 :    Save the current table to a file.
 
-Process and Combine
+Purge Inactive
 
+Load from Dataset
+
+Load Column
+
+---
+
+
+### Process
+
+Load Row RID
+: Load the FID for the currently selected row.
+
+Process and Combine
 :    Process all the datasets using the current script. The processed files will be combined into single dataset.  If the original data files are one-dimensional a pseudo-2D dataset will be created, with one row for each original dataset.  If the original data files are two-dimensional, then a pseudo-3D dataset will be created, with one plane for each original dataset.  The dataset created will be named **process.nv** and will be written into the directory specified with the **Set Scan Ouput Directory** menu item.  If this hasn't already been specified a directory chooser will be displayed.
 
 Process 
 
 :    Process all the datasets using the current script.  The processed data will will be placed in a series of files named **processN.nv**, where N is the table row number (counting from 1).  The files will be written into the directory specified with the **Set Scan Ouput Directory** menu item.  If this hasn't already been specified a directory chooser will be displayed.
+
+Combine
+
+
+---
 
 ### Table
 
