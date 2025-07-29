@@ -4,6 +4,8 @@ taxonomy:
     category: docs
 ---
 
+This tool performs analysis of effective rotational correlation times by use of TRACT analsyis as 
+described in Lee et al. (2006), J. Magn Resonance 178:72-76
 
 1.  Process the arrayed spectrum
 2.  Open the Scanner tool
