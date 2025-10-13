@@ -32,7 +32,7 @@ Dataset Table
 : A menu will appear at the right side of the main menu in the Dataset Table
 See the **NMRFxDatasetTableExamplePlugin.java** example.
 
-Dataset Table
+Peak Table
 : A menu will appear at the right side of the main menu in the Peak Table
 See the **NMRFxPeakTableExamplePlugin.java** example.
 
