@@ -4,7 +4,7 @@ taxonomy:
     category: docs
 ---
 
-# Building NMRFx
+### Building NMRFx
 
 NMRFx is largely written in the Java programming language.  Some command line based tools 
 are written in Python and execute using the embedded Jython (Python in Java) intepreter.
@@ -81,7 +81,7 @@ We welcome contributions of source code, but recommend that users contact us bef
 under rapid development so its good if we are aware of external projects.
 
 
-# NMRFx Plugins
+### NMRFx Plugins
 
 NMRFx supports plugins.  These are executable tools that can be built by external users,  and then downloaded and copied  nto the **lib** or **plugin** directory of
 an installed version of NMRFx. On start-up, the  NMRFx application will check for plugins and load them if available.
