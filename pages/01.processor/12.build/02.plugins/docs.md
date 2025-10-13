@@ -57,7 +57,7 @@ We provide, as listed above, examples of the use of each location.  At present, 
 appears in any of the available locations.  As we work on documenting the NMRFx API, we will provide more explicit examples of their use.
 
 The plugin examples are located in the **nmrfx-example-plugin** folder.  You can copy this folder to another location and edit the files (most likely
-removing any files for plugin locations you don't want to use and changing the package and file names).  Use the **mvn clean **package** command
+removing any files for plugin locations you don't want to use and changing the package and file names).  Use the **mvn clean package** command
 to compile and build the plugin **.jar** file.  Prior to doing this you'll need to build and install NMRFx on your computer with **mvn -DskipTests clean install**
 so that the required libraries are installed in the maven repository.
 
