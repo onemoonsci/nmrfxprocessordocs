@@ -1,5 +1,5 @@
 ---
-title: Building NMRFx and Plugins 
+title: Building Plugins 
 taxonomy:
     category: docs
 ---
