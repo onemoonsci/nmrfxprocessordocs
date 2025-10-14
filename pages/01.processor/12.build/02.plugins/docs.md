@@ -67,13 +67,15 @@ The source code for a plugin must contain the following file:
 
     src/main/resources/META-INF/services/org.nmrfx.plugin.api.NMRFxPlugin
 
-whose contents specify the full name of an Plugin classes that should be loaded:
+whose contents specify the full name of any Plugin classes that should be loaded (one class per line):
 
     org.nmrfx.example.plugin.NMRFxPluginMenuExamplePlugin
 
 the specified Plugin classes must implementthe NMRFxPlugin interface:
 
     public class NMRFxPluginMenuExamplePlugin implements NMRFxPlugin {
+
+Implementing that interface requires that the class overrides the getSupportedEntryPoints and registerOnEntryPoint methods.
 
 
 Each Plugin class can support one or more Entry Points.  These are the locations where the plugin will appear in the GUI.
@@ -104,7 +106,7 @@ with a call to the registerOnEntryPoint method.  Here's an example of that metho
 In the examples we provide we use a Java switch statement to show that you could respond to multiple Entry Points.  There
 should be a case for each Entry Point that was returned by a call to **getSupportedEntryPoints**.  If the 
 call to registerOnEntryPoint has an argument for an unsupported Entry Point then the IllegalArgumentException is thrown.
-So the EntryPoints returned by **getSupportedEntryPoints** should always be matched to a supported case.
+So the EntryPoints returned by **getSupportedEntryPoints** should always be matched to a supported case in the switch statement.
 
 The **registerOnEntryPoint** method calls some method to update the GUI with appropriate code.
 In this example, the code adds a menu entry to the Plugin menu:
@@ -165,5 +167,4 @@ the Java method could create a set of GUI items in the right hand tool panel as 
 
 Please contact us if you wish more information on Plugin development.  As with contributing code
 to the main project, we recommend discussing with us your plans for plugins so we can alert you to any planned API changes.
-
 
