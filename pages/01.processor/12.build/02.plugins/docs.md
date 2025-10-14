@@ -90,7 +90,7 @@ plugin can appear in, and only in, the main menubar Plugin menu.
 
 When NMRFx starts up, at each code location where a plugin could be loaded, it checks the Plugin classes specifed in the 
 NMRFxPlugin file to see if that Entry Point is supported.  If the Entry Point is supported by a class the plugin is regstered
-with a call to the following method:
+with a call to the registerOnEntryPoint method.  Here's an example of that method in the NMRFxPluginMenuExamplePlugin.java class:
 
     @Override
     public void registerOnEntryPoint(EntryPoint entryPoint, Object object) {
@@ -101,7 +101,7 @@ with a call to the following method:
         }
     }
 
-In our examples we use a Java switch statement to show that you could respond to multiple Entry Points.  There
+In the examples we provide we use a Java switch statement to show that you could respond to multiple Entry Points.  There
 should be a case for each Entry Point that was returned by a call to **getSupportedEntryPoints**.  If the 
 call to registerOnEntryPoint has an argument for an unsupported Entry Point then the IllegalArgumentException is thrown.
 So the EntryPoints returned by **getSupportedEntryPoints** should always be matched to a supported case.
@@ -159,9 +159,9 @@ by a EntryPoint.RIGHT_TOOLS Entry Point).  Here the object passed in is the cont
     }
 
 The real work of a plugin is triggered by the various GUI controls added.  These could be  MenuItems that
-call some Java method when the object passed in is a Menu object, or a full set of GUI items that might appear in more
-complex plugin GUIs where the object is more complex like ToolController of the above tool.
-
+call some Java method when the object passed in is a Menu object.  The Java method called can execute a simple operation
+or could trigger the creation and display of a complex GUI as is done with the RING NMR Dynamics application.  Alternatively,
+the Java method could create a set of GUI items in the right hand tool panel as is done in the previous example.
 
 Please contact us if you wish more information on Plugin development.  As with contributing code
 to the main project, we recommend discussing with us your plans for plugins so we can alert you to any planned API changes.
