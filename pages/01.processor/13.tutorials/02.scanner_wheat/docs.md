@@ -6,7 +6,7 @@ taxonomy:
 
 **Tutorial on using the Scanner Tool to analyze metabolomics data**
 
-In this tutorial a study on the survival of three different wheat strains during periods of cold stress is analyzed. This work is published in the journal PLOS One (PLOS ONE | https://doi.org/10.1371/journal.pone.0198042 June 18, 2018) and wsa originally processed using DataChord Spectrum Miner. The data is used in this tutorial to show how the files are processed and analyzed using NMRFx' Scanner tool.
+In this tutorial a study on the survival of three different wheat strains during periods of cold stress is analyzed. This work is published in the journal [PLOS One](https://doi.org/10.1371/journal.pone.0198042) and wsa originally processed using DataChord Spectrum Miner. The data is used in this tutorial to show how the files are processed and analyzed using NMRFx' Scanner tool.
 
 The data consists of two replicates of three wheat strains that were grown under conditions of freezing during specific times (Zeitgeber Times) during an ultradian photoperiod where ZTime 0 hour is the start of the light cycle, Ztime 6 hours is the midpoint of the light cycle, ZTime 12 hours is the beginning of the dark cycle and ZTime 18 hours is the midpoint of the dark cycle. The freezing cycles (temperature lowered to -15 C) were started at each of the various Ztimes and the survival, gene expression and metabolite production monitored. In this study the wheat samples were extracted and the metabolites analyzed by 1H NMR for variations in concentrations as well as by PCA.
 
