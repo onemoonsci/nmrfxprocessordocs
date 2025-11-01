@@ -1,5 +1,5 @@
 ---
-title: RunAbout, A How-too tutorial for assigning Ubiquitin
+title: RunAbout, A How-to tutorial for assigning Ubiquitin
 taxonomy:
     category: docs
 ---
