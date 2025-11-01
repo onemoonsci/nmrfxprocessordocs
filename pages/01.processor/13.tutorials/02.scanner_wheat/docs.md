@@ -1,5 +1,5 @@
 ---
-title:  Scanner
+title:  Scanner Metabolomics (Winter Wheat Data)
 taxonomy:
     category: docs
 ---
