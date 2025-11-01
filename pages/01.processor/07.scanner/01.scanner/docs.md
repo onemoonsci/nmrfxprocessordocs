@@ -7,7 +7,7 @@ taxonomy:
 
 The Scanner Tool can be used to process, visualize and analyze groups of spectra.  Intensity and integral measures are stored in a table and this tabular data can be exported for use in other applications. 
 
-An example of the use of the Scanner tool is available in a [tutorial](/13.tutorials/02.scanner_wheat) on the analysis of NMR metabolomics data from Winter Wheat.
+An example of the use of the Scanner tool is available in a [tutorial](../../13.tutorials/02.scanner_wheat) on the analysis of NMR metabolomics data from Winter Wheat.
 
 
 The Scanner Tool is accessed from the "Tools" menu in the lower left of the main spectrum window as follows:
