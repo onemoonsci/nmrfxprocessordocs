@@ -18,5 +18,7 @@ reviewing every suggested assignment and approving or disapproving it,
 and 3) manually assigning the peaks in an environment with easy and
 robust bookkeeping.
 
+An example of the use of the RunAbout is available in a [tutorial](../../13.tutorials/01.runabout) on the assignment of backbone resonances of ubiquitin.
+
+
 ### [Menus](menus)
-### [Tutorial](tutorial)
