@@ -6,4 +6,3 @@ title: NMRFx Analyst
 
 
 ### [Viewer](/viewer)
-### [Structure](/structure)
