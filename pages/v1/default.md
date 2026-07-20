@@ -3,4 +3,4 @@ title: Documentation
 taxonomy:
     category: default
 ---
-[Analyst](processor)
+[Analyst](analyst)
