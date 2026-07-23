@@ -93,24 +93,36 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	assignment process.
 	1. HC arranges two columns of experiments, left side is HNCOcaCB, HNCOCA, HNCO, right side
 	HNCACB, HNCA, HNCACO with X-axis being the amide proton view of residue *i* and the Y-axis 	gives views of the carbon shifts. The left column show peaks belonging to residue *i*-1 	while the right column show peaks belonging to both residue *i* and *i*-1.
-	2. HCij arranges six columns of experiments using the same views and experiments as the HC
+	2. HCHali provides a new row for experiemnts that provide a H aliphatic dimension such as 
+	HBHANH or HBHAcoNH experiments. A H aliphatic axis is added.
+	3. HCij arranges six columns of experiments using the same views and experiments as the HC
 	arrangement described aove. The leftmost column displays crosspeaks belonging to the
 	spinsystem *i*-1 (HN, CO, CA, CB) whereas the second column from left displays the 	crosspeaks belonging to both residue *i*-1 and residue *i *, both columns based on the 	amide proton shift of residue *i*-1. The middle two columns display similar information
 	but based on the amide proton shift of residue *i*. The rightmost two columns displays
 	crosspeaks belonging to residue *i* as well as residue *i*+1 (residue *j*) based on the
 	chemical shift of the amide proton for residue *j*.
-	3. HCij_CACB arranges six columns as the HCij arrangement but omits the HNCO and HNCACO 
-	experiments so as to concentrate the view on only the CA and CB crosspeaks.
-	4. HCij_CB focuses the view on the HNCOcaCB and the HNCACB experiments.
-	5. HCij_CA focuses the view on the HNCOCA and HNCA experiments.
-	6. HCij_C focuses the view on the HNCO and HNCACO experiments.
+	4. HCHali_hij provides a new row to the HCij arrangement which provides a H aliphatic 
+	chemcial shift axis.
 	7. HCNC affords the same views as in the HC arrangement but supplements each with the 
 	view from the nitrogen shift of residue *i*. This arrangement affords a view where the 
-	notrogen chemical shift allows for separation of crosspeaks that may be overlapped in the
+	nitrogen chemical shift allows for separation of crosspeaks that may be overlapped in the
 	amide proton view.
 	8. HN provides the HN plane centered at the proton and nitrogen shifts for residue *i* from 	the same experiment set as in the HC arrangement.
 	9. HNfull provides an overlay of all of the HN planes for the each experiment. This view
 	is useful for establishing the contour levels and general insoection of the data.
+
+**Rows** Menu
+
+:	The "rows" Menu works in conjunction with the "Arrangements" Menu in providing toggles
+	for selecting the Y axis nucleus choices. The choices add or remove various views allowing
+	the user to simplify or focus on certain views. Choices are:
+
+	1. C toggles on or off any row which has the Y axis set to the carbonyl chemical shift 
+	range.
+	2. Hali toggles on or off any row which has the Y axis set to the aliphatic H chemical
+	shift range.
+	3. CA toggles on or off any row which has the Y axis set to the CA chemcial shift range.
+	4. CB toggles on or off any row which has the Y axis set to the CB chemcial shift range.
 
 **Actions** Menu
 
@@ -138,38 +150,27 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	deleted from the list. The increase in tolerance value minimizes the risk of erroneously
 	removing peaks that are valid but slightly misalligned.
 
-	4. Assemble: This action will group together peaks from the peak lists that contain the
-	same amide H and N chemical shifts. This effectively determines which peaks in different
-	peak lists belong to the same residue as well as determine which peaks may be inter-
-	residue as opposed to intra-residue for certain peak lists. The peaks are "clustered" 
-	based on the tolerance values set up for each list. Each cluster must also have only one
-	peak from the reference list and this peak number is used as the cluster identifier. The 
-	"Assemble" action also populates a new "spinsystems" entry into the "List" menu. Choosing
-	the spinsystem option n the "List" menu displays a series of letters above each dataset
-	that correspond to the expected correlations for that experiment and whether or not
-	the correct number has been found. A green bar and the number 0 indicate that all expected
-	correlations have been found whereas a red bar under a given correlation (i.e. the cb-1)
-	and the number -1 indicates that the C-beta correlation for the *i*-1 pattern is missing
-	from the HNCACB spectrum for the *i*-1 column. The number may also be positive meaning 
-	RunAboutX has found more than the expected correlatons. Right clicking on any crosspeak
-	brings up a pulldown menu that allows for either opening the peak inspector or gives the
-	best guess as to the pattern identity of the crosspeak, i.e. the CB of residue *i*-1.
-	
+	4. Assemble Spin System: This action will group together peaks from peaklists that contain 
+	the same amide H and N chemical shifts as found in the HNCO experiment. This effectively 
+	determines which peaks in different peak lists belong to the same residue or "cluster"
+
 ![](images/Runabout_spinsystem.png)
 
-	5. Combinations: This action examines each cluster and attempts to assign the cluster to 
+	5. Assign Atom Types: This action examines each cluster and attempts to assign the cluster 	to 
 	a given amino acid type. This action also seeks to determine which cross peaks belong to
 	residue *i* or to residue *i*-1. The conection between clusters based on the identity of 
 	a crosspeak going back to residue *i*-1 is given by a green line between the current 
 	cluster being examined and the previous cluster (to the left). A blue line between cross
 	peaks indicates a connection between a cluster and the successive cluster.
  
-	6. Compare: Compare is the action that seeks to link up clusters in a way that the peaks
+	6. Match Adjacent: This action seeks to link up clusters in a way that the peaks
 	can be assigned to amino acids in the protein sequence. At this point in the analysis the
 	clusters can be more correctly thought of as spinsystems that are linked into the amino 
-	acid sequence. Important aspects of the Helm after the "Compare" action has been taken are
-	shown below:
-	![](images/Runabout_Compare.png)
+	acid sequence. Important aspects of the Helm after the "Match Adjacent" action are taken
+	are shown below:
+
+
+![](images/Runabout_Compare.png)
 
 	The cluster under current inspection is shown in the window (1). In this example it is 
 	cluster 19 and the chemical shifts for the current cluster are given by the capital 
@@ -178,10 +179,10 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	the arrows or by clicking on any cluster in the linear display of clusters. 
 	The best match on the N-terminal side *i*-1 is
 	given on the left side, in this example cluster 47 (2) and the lower case letters 
-	designating the carbonyl (c) and the ca and cb with the chemcial shifts given for each
+	designating the carbonyl (c) and the ca and cb with the chemical shifts given for each
 	atom (red elipse). The best match for the C-terminal side *i*+1 is given on the right
 	side, in this example cluster 21 (3). The match probability is given by a score which
-	spans +100 to -150 where -150 is the highet probability and +100 very low probability.
+	spans +100 to -150 where -150 is the highest probability and +100 very low probability.
 	For the current cluster the best fit for amino acid spin system is given by the list of 
 	amino acids (4). Amino acids in capital letters have a higher probability of a match
 	for the current cluster spinsystem. The probability is highest for a letter in lighter
@@ -192,7 +193,11 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	position from all of the experiments where that peak is found. The deviation from the 
 	average is also given. In cluster 47 the *i*-1 ca has a chemical shift of 52.8 ppm that is
 	derived from values from 3 different experiments and has a deviation of 0.2 ppm from the 
-	average.
+	average. The row of chemcial shifts below each atom chemical shift is how well the chemical
+	shift for a given atom match between the *i*-1 and *i* experiments. Chemical shifts that 
+	match exactly show complete agreement between for example the CA shift from the HNcoCA 
+	experiment and the HNCA experiment. If these numbers are different by more than the 
+	specified tolerance for that atom type the lower value appears as magenta.
 	
 ![](images/Runabout_shift.png)
 
@@ -203,12 +208,12 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	clusters that are either deficient in inter and intra-residue connections or may have too
 	many.  
 
-	1. ALL: Provides a list of all clusters after the "Assemble" action. 
+	1. ALL: Provides a list of all clusters after the "Assemble Spin Systems" action. 
 
 	2. CORRECT: Lists all cluster that contain the correct number of peaks between the *i*-1
 	and *i* clusters.
 
-	3. LONELY: After the "Combinations" action clusters may be created that contain only one
+	3. LONELY: After the "Assign Atom Types" action clusters may be created that contain only one
 	or two peaks in the cluster. These spurious clusters are deemed "lonely" and can be 
 	removed from the cluster list by clicking the circle with the slash.
 	
@@ -217,7 +222,7 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	4. MISSING:	Lists all clusters that are missing one or more of the inter and intra-residue 
 	connections. 
 
-	5. MISSING_PPM: After the "Combinations" action this menu option lists all clusters that 
+	5. MISSING_PPM: After the "Assign Atom Types" action this menu option lists all clusters that 
 	have missing inter and intra residue connections and lists which chemical shift is missing.
 
 	6. EXTRA: Lists all clusters that contain additional inter or intra-residue connections.
@@ -237,10 +242,62 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	2. Move to Cluster: Will move a selected peak to another cluster (how to choose the cluster
 	where the peak is being moved to?)
 
-	3. Analyze: Performs the action that "Combinations" provides. Use "Analyze" to correct a
+	3. Analyze: Performs the action that "Assign Atom Types" provides. Use "Analyze" to correct a
 	cluster if the atom patterns have been missassigned. 
 
-	4. GraphMatching:
+	4. GraphMatching: Opens a popup window that contains controls for automatically assigning
+	the clusters and updating the Atom Table with chemical shifts for each residue. The popup
+	appears as shown below:
+
+![](images/Runabout_GraphMatching2.png)
+
+	The controls along the top are:
+
+	1. Match: Begins the process of autoassigning using the specified parameters.
+
+	2. Stop: Once Matching begins this control allows the user to stop the process prior to 
+	the maximum number of tries.
+
+	3. Details: 
+
+	4. Reset: Resets the results and allows the user to change parameters for another try.
+
+	5. Assign: Updates the Atom Table with chemical shifts for each residue assigned. Updates
+	the Helm to display the clusters that have been assigned to the residues.
+	After a successful matching the popup looks as follows:
+
+![](images/Runabout_GraphMAtched_Success.png)
+
+	Parameters for the Graph Matcher are as follows:
+
+	a. N Tries: The total number of tries for the genetic algorithm
+
+	b. Population Size:
+
+	c. NGenerations:
+
+	d. Mutation Rate:
+
+	e. Crossover Rate:
+
+	f. Fraction Match Requirement:
+
+	g. N Steady:
+
+	h. SDev Ratio:
+
+	i. Max Age:
+
+	j. Elite Number:
+
+	A check box for selection of "Mutation Profile" is provided which toggles on or off the 
+	selection of:
+
+	The progress of the assignment process can be monitored using the "Status" values which
+	reports on each "Try" of the total "N Tries" parameter and within each try the "Gen" or 
+	generation being evaluated. The score for the current generation being evaluated is given
+	in the "Current" fierld while the "Best" gives the best score (most negative number) to
+	that point in the analysis.
 
 	5. Trim: This tool looks at each cluster and all peaks associated with it and determines 
 	how many peaks are expected to appear for each cluster for a given experiment type (i.e.
@@ -293,9 +350,8 @@ forward and back arrows. Choices are set to the active peak lists being used in 
 	a dashboard. Several of the information functions have already been discussed in the 
 	"Actions" Compare section. 
 
-	1) Assemble and Combinations: The dashboard appears as follows after the "Assemble", 
-	"Combinations" and "Compare" actions have been taken.
-	
+	1) Assemble and Combinations: The dashboard appears as follows after the "Assemble Spin
+	Systems", "Assign Atom Types" and "Match Adjacent" actions have been taken.	
 ![](images/Runabout_dashboard_Assemble.png)
 
 	The clusters have been "assembled" and appear in a linear row. The check boxes adjacent to
