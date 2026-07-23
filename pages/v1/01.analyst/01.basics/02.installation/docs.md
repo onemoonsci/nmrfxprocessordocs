@@ -6,7 +6,7 @@ taxonomy:
 
 
 ##Java
-NMRFx Analyst is written in the [Java](https://youtu.be/Kd5z3EuXmh4)
+NMRFx Analyst is written in the [Java](https://youtu.be/ZqGSg4b_cZA?si=OGo67KpwztJvOa6m)
  programming language. Because of this we can produce one version of the program which runs on many different operating systems.  We release versions which run on MacOSX (both Intel and Apple Silicon processors), Windows and Linux. We bundle a Java Runtime Environment (JRE) right in with the application, so there is no need to install Java yourself, or really even be aware that this is a Java based application.  The Java that is embedded in the installer will be installed along with our software application, and in a way that doesn't conflict with your use of Java by other applications.  
 
 ###Registration and Downloads
