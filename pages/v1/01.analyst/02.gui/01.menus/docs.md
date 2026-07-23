@@ -275,6 +275,10 @@ Various menu items for showing windows.  The menu items available are platform d
 
 ### Help
 
+Join Slack Channel
+
+:    Open the default web browser with a link to join the NMRFx Slack Channel.  Note: On MacOS you may get an error message "browser is not supported". As an alternative use Chrome as your default browser, or start Chromee and copy the link from Safari into Chrome, or use the desktop Slack App. Copy the invite link, open your desktop Slack app, click Add channels (or the + icon next to Channels), select Join channel, and paste the link or search for the channel name if you are already in the workspace.
+
 Online Documentation
 
 :    Open the default web browser and display the online documentation.
@@ -283,9 +287,9 @@ NMRFx Web site
 
 :    Open the default web browser and display the [NMRFx web site](http://nmrfx.org).
 
-NMRFx Mailing List 
+Video Tutorials
 
-:    Open the default web browser and display the [NMRFx mailing list site](https://groups.io/g/NMRFx).
+:    Open the default web browser and display a page with a list of video tutorials
 
 
 NMRFx Publication
