@@ -1,11 +1,7 @@
 ---
-title: Molecular Structures
+title: Molecules
 taxonomy:
     category: docs
 ---
 
-### Chapter 4
 
-# GUI
-
-Loading Structures and Generating Constraints
