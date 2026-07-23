@@ -4,4 +4,5 @@ taxonomy:
     category: default
 ---
 [Analyst](analyst)
+
 [Structure](structure)
